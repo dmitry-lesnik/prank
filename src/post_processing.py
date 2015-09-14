@@ -89,6 +89,9 @@ def find_regions(grad_x, grad_sign):
 
 
 def monotonous_intervals(limits_x, signs):
+
+    use_inflection = False
+
     intervals = []
     n = len(signs)
     i = 0
@@ -101,13 +104,21 @@ def monotonous_intervals(limits_x, signs):
                 i += 1
                 b = limits_x[i + 1]
                 intervals.append((s, a, b))
-                intervals.append((0, limits_x[i]))
+                if use_inflection:
+                    intervals.append((0, limits_x[i]))
             else:
                 intervals.append((s, a, b))
         else:
             intervals.append((s, a, b))
         i += 1
     return intervals
+
+def classify_behaviour(intervals):
+    a = ()
+    for t in intervals:
+        a = a + (t[0],)
+    return a
+
 
 
 def narrative(intervals):
@@ -147,7 +158,7 @@ if __name__ == "__main__":
 
     # input
     x = np.linspace(0., 5., 21)
-    y = (x - 2.) ** 3 - 0.4 * x
+    y = (x - 2.) ** 3 - 0.5 * x
 
     n = x.size
     n1 = 10 * n
@@ -173,3 +184,12 @@ if __name__ == "__main__":
     sentences = narrative(intervals)
     for s in sentences:
         log_debug(s, std_out=True)
+
+
+    a = classify_behaviour(intervals)
+    print a
+
+
+
+
+
