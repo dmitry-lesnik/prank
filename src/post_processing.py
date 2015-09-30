@@ -132,6 +132,9 @@ def find_regions(grad_x, grad_sign):
 
 
 def monotonous_intervals(limits_x, signs):
+
+    use_inflection = False
+
     """
     Returns
     -------
@@ -139,6 +142,7 @@ def monotonous_intervals(limits_x, signs):
     intervals :     list[tuple[sign, from, to]]
         each tuple is an interval of monotonicity or inflection point;
     """
+
     intervals = []
     n = len(signs)
     i = 0
@@ -151,7 +155,8 @@ def monotonous_intervals(limits_x, signs):
                 i += 1
                 b = limits_x[i + 1]
                 intervals.append((s, a, b))
-                intervals.append((0, limits_x[i], limits_x[i]))
+                if use_inflection:
+                    intervals.append((0, limits_x[i], limits_x[i]))
             else:
                 intervals.append((s, a, b))
         else:
@@ -173,8 +178,6 @@ def get_signature(intervals):
         if itv[0] != 0:
             sig.append(itv[0])
     return sig
-
-
 
 def narrative(intervals):
     n = len(intervals)
@@ -242,3 +245,7 @@ if __name__ == "__main__":
     sentences = narrative(intervals)
     for s in sentences:
         log_debug(s, std_out=True)
+
+
+
+
