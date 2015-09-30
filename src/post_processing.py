@@ -7,6 +7,18 @@ from helpers import *
 
 
 def grad1d(y, dx):
+    """
+    y :     array(N)
+        y-values, supposed to be equidistant
+
+    dx :    float
+        grid step
+
+    Returns
+    -------
+    g :     array(N)
+        gradient g = y'(x) calculated at the same points of x
+    """
     g = np.zeros(y.size, dtype=float)
     g[1:-1] = (y[2:] - y[:-2]) / dx / 2.
     g1 = (y[1] - y[0]) / dx
@@ -20,17 +32,38 @@ def grad1d(y, dx):
 
 @log('')
 def filtered_gradient(x, y, n1):
+    """
+    x :     array
+        x-values
+
+    y :     array
+        y-values
+
+    n1 :    int
+        new number of x-points
+
+    Returns
+    -------
+    grad_x :    array[float](N)
+        new x-values
+
+    grad_y :    array[float](N)
+        values of y'(x) at new x-values
+
+    grad_sign : array[int = -1, 0, 1](N)
+        gradient sign with epsilon-precision,
+        sticks to zero if gradient is epsilon-small
+
+    """
     n = x.size
     dx = (x[-1] - x[0]) / (n - 1.)
     grad = grad1d(y, dx)
     grad2 = grad1d(grad, dx)
     grad3 = grad1d(grad2, dx)
 
-
     # estimate epsilon
     max_d3y = abs(grad3).mean()
     eps = 0.5 * (max_d3y * dx ** 3)
-
 
     # re-sample gradient
     f = interp1d(x, grad, kind='quadratic')
@@ -54,6 +87,16 @@ def filtered_gradient(x, y, n1):
 
 
 def find_regions(grad_x, grad_sign):
+    """
+    Returns
+    -------
+    limits_x :  array(N+1)
+        limits of monotonicity intervals
+
+    signs :     array[int = -1, 1](N)
+        signs on each interval
+        signs do not include zeros, only -1 and 1
+    """
     n = grad_x.size
     limits_x = []
     signs = []
@@ -89,6 +132,13 @@ def find_regions(grad_x, grad_sign):
 
 
 def monotonous_intervals(limits_x, signs):
+    """
+    Returns
+    -------
+
+    intervals :     list[tuple[sign, from, to]]
+        each tuple is an interval of monotonicity or inflection point;
+    """
     intervals = []
     n = len(signs)
     i = 0
@@ -101,13 +151,29 @@ def monotonous_intervals(limits_x, signs):
                 i += 1
                 b = limits_x[i + 1]
                 intervals.append((s, a, b))
-                intervals.append((0, limits_x[i]))
+                intervals.append((0, limits_x[i], limits_x[i]))
             else:
                 intervals.append((s, a, b))
         else:
             intervals.append((s, a, b))
         i += 1
     return intervals
+
+
+def get_signature(intervals):
+    """
+    Returns
+    -------
+    signature : list[int = -1, 1]
+        sequence of gradient signs
+    """
+
+    sig = []
+    for itv in intervals:
+        if itv[0] != 0:
+            sig.append(itv[0])
+    return sig
+
 
 
 def narrative(intervals):
@@ -147,7 +213,7 @@ if __name__ == "__main__":
 
     # input
     x = np.linspace(0., 5., 21)
-    y = (x - 2.) ** 3 - 0.4 * x
+    y = (x - 2.) ** 3 + 0.01 * x - 3. * np.exp(2. * (x - 4.))
 
     n = x.size
     n1 = 10 * n
@@ -167,8 +233,11 @@ if __name__ == "__main__":
     # plt.plot(grad_x, grad_y)
     # plt.grid(True)
     # plt.show()
-    #
 
+
+    sig = get_signature(intervals)
+
+    log_debug(sig, 'signature', std_out=True)
 
     sentences = narrative(intervals)
     for s in sentences:
