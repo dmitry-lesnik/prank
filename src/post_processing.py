@@ -212,7 +212,7 @@ def narrative(intervals):
 
 
 if __name__ == "__main__":
-    open_logger('prank.log')
+    open_logger('postprocessing.log')
 
     # input
     x = np.linspace(0., 5., 21)
