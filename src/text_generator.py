@@ -28,6 +28,7 @@ class Synonyms(object):
 
     def get_random_synonym(self, w):
         decapitalise = lambda s: s[:1].lower() + s[1:] if s else ''
+        capitalise = lambda s: s[:1].upper() + s[1:] if s else ''
         cap = False
         if w[0] in CAPITAL_LETTERS:
             w = decapitalise(w)
@@ -38,7 +39,7 @@ class Synonyms(object):
         words = self.get_synonyms(w)
         i = random.randint(0, len(words)-1)
         if cap:
-            return words[i].capitalize()
+            return capitalise(words[i])
         else:
             return words[i]
 
@@ -74,12 +75,20 @@ if __name__ == "__main__":
 
     Syn = Synonyms()
 
-    Syn.get_synonyms('')
+    syn = Syn.get_synonyms('decreases')
+    log_debug(syn, 'synonyms', std_out=True)
+
+    syn = Syn.get_synonyms('decrease')
+    log_debug(syn, 'synonyms', std_out=True)
 
 
+    w = Syn.get_random_synonym('Decreases')
+    log_debug(w, 'random synonym', std_out=True)
 
+    w = Syn.get_random_synonym('DecreaseS')
+    log_debug(w, 'random synonym', std_out=True)
 
-
+    # use string.Template()
 
 
 
