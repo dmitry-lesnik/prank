@@ -1,5 +1,6 @@
 import numpy as np
 from helpers import *
+from string import Template
 
 import random
 
@@ -65,36 +66,78 @@ class test_generator(object):
         pass
 
 
+def parse_template(s):
+    """
+    template is a sentence with some words in curly brackets, like
+    "This function is {raising} on the interval from a to b."
+
+    Returns
+    -------
+    preformatted:   string
+        sentence suitable for formatting, like
+        "This function is {} on the interval from a to b."
+    keys :  list
+        keys to be used in formatting:
+        preformatted.format(keys)
+    """
+    blocks = []
+    keys = []
+    for w in s.split('{'):
+        w1 = w.split('}')
+        if len(w1) == 1:
+            blocks.append(w1[0])
+        elif len(w1) == 2:
+            if w1[0] == '':
+                raise RuntimeError('zero length modifiable in curly brackets')
+
+            keys.append(w1[0])
+            blocks.append(w1[1])
+    preformatted = '{}'.join(blocks)
+    return preformatted, keys
+
+
+def generate_sentence_from_preformatted(preformatted, keys):
+    return preformatted.format(*tuple(keys))
+
+
+def generate_sentence_from_template(template, vars=None, randomise=True):
+    """
+    Template is a sentence, which contains replaceable words in curly brackets
+    "This function is {increasing} on the interval a to b"
+    """
+
+    preformatted, keys = parse_template(template)
+
+    if randomise:
+        syn = Synonyms()
+        for idx, w in enumerate(keys):
+            w = syn.get_random_synonym(w)
+            keys[idx] = w
+    s = generate_sentence_from_preformatted(preformatted, keys)
+    if vars is not None:
+        s = Template(s).safe_substitute(**vars)
+    return s
+
+
 
 
 if __name__ == "__main__":
     open_logger('text_generator.log')
-    random.seed(1234)
+    # random.seed(124)
 
 
+    ###########################################
 
-    Syn = Synonyms()
+    a = 8
+    b = 12
+    vars = dict()
+    vars['a'] = a
+    vars['b'] = b
 
-    syn = Syn.get_synonyms('decreases')
-    log_debug(syn, 'synonyms', std_out=True)
+    template = '{This} function {increases} from $a to $b.'
 
-    syn = Syn.get_synonyms('decrease')
-    log_debug(syn, 'synonyms', std_out=True)
-
-
-    w = Syn.get_random_synonym('Decreases')
-    log_debug(w, 'random synonym', std_out=True)
-
-    w = Syn.get_random_synonym('DecreaseS')
-    log_debug(w, 'random synonym', std_out=True)
-
-    # use string.Template()
-
-
-
-
-
-
+    s = generate_sentence_from_template(template, vars)
+    log_debug(s, 'generated sentence', std_out=True)
 
 
 
