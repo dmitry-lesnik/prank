@@ -35,8 +35,6 @@ class Synonyms(object):
             w = decapitalise(w)
             cap = True
 
-
-
         words = self.get_synonyms(w)
         i = random.randint(0, len(words)-1)
         if cap:
@@ -131,10 +129,10 @@ if __name__ == "__main__":
     a = 8
     b = 12
     vars = dict()
-    vars['a'] = a
-    vars['b'] = b
+    vars['aa'] = a
+    vars['bb'] = b
 
-    template = '{This} function {increases} from $a to $b.'
+    template = '{This} function {increases} from $aa to $bb.'
 
     s = generate_sentence_from_template(template, vars)
     log_debug(s, 'generated sentence', std_out=True)
