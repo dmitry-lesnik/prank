@@ -37,8 +37,9 @@ class Synonyms(object):
         self.synonyms.append(['decreasing', 'decaying'])
 
         self.synonyms_ambiguous = dict()
-        self.synonyms_ambiguous['$close-shut'] = ['close', 'shut']
-        self.synonyms_ambiguous['$close-near'] = ['close', 'nearby']
+        self.synonyms_ambiguous['$shut'] = ['close', 'shut']
+        self.synonyms_ambiguous['$near'] = ['close', 'near']
+        self.synonyms_ambiguous['$near'] = ['close', 'near']
 
 
     def get_synonyms_list(self, w):
@@ -75,12 +76,12 @@ class Synonyms(object):
             return words[i]
 
 
-class equivalent_sentences(object):
+class Equivalent_sentences(object):
     def __init__(self):
         self.groups = dict()
 
-        self.groups['$$growing_function'] = ['{Next we observe that} this $p1 {raises} in the interval from $p2 to $p3.',
-                                              'Notice that on the interval [$p2, $p3] the $p1 is {growing}.']
+        self.groups['**value_is_growing'] = ['{Next we observe that} $p1 {raises} in the interval from $p2 to $p3.',
+                                              'Notice that on the interval [$p2, $p3] $p1 is {growing}.']
 
     def get_sentences_list(self, key):
         if key in self.groups:
@@ -103,12 +104,10 @@ class equivalent_sentences(object):
 
 
 
-
-
-
-class test_generator(object):
+class Text_generator(object):
     def __init__(self):
         self.syn = Synonyms()
+        self.eqs = Equivalent_sentences()
 
 
 
@@ -141,53 +140,53 @@ class test_generator(object):
         preformatted = '{}'.join(blocks)
         return preformatted, keys
 
-
     def generate_sentence_from_preformatted(self, preformatted, keys):
         return preformatted.format(*tuple(keys))
 
 
-    def generate_sentence_from_template(self, template, vars=None, randomise=True):
+    def generate_sentence_from_template(self, template, vars=None, cap_first=True):
         """
         Template is a sentence, which contains replaceable words in curly brackets
         "This function is {increasing} on the interval a to b"
         """
-
         preformatted, keys = self.parse_template(template)
 
-        if randomise:
-            # syn = Synonyms()
-            for idx, w in enumerate(keys):
-                w = self.syn.get_random_synonym(w)
-                keys[idx] = w
+        for idx, w in enumerate(keys):
+            w = self.syn.get_random_synonym(w)
+            keys[idx] = w
         s = self.generate_sentence_from_preformatted(preformatted, keys)
         if vars is not None:
             s = Template(s).safe_substitute(**vars)
-        return s
+        return capitalise(s)
+
+    def generate_sentence_from_metatemplate(self, metatemplate, vars=None, cap_first=True):
+        tmp = self.eqs.get_random_template(metatemplate)
+        return self.generate_sentence_from_template(tmp, vars, cap_first)
+
 
 
 def test_narrative():
     a = 8
     b = 12
     vars = dict()
-    vars['aa'] = a
-    vars['bb'] = b
-    vars['st'] = 'function'
+    vars['x'] = a
+    vars['y'] = b
+    vars['w'] = 'omega'
 
-    gen = test_generator()
-    eqs = equivalent_sentences()
+    gen = Text_generator()
 
 
-    proto_text = ['{This} function {increases} from $aa to $bb.',
-                  '{$Close-shut} that fucking {door} please.',
-                  '$$growing_function|$st|$aa|$bb',
-                  '{This} function {increases} from $aa to $bb.',
-                  '{$Close-shut} that fucking {door} please.',
-                  '$$growing_function|$st|$aa|$bb']
+    proto_text = ['{This} function {increases} from $x to $y.',
+                  '{$Shut} that fucking {door} please.',
+                  '**value_is_growing|$w|$x|$y',
+                  'The value of $w {increases} from $x to $y.',
+                  '{$Shut} that fucking {door} please.',
+                  '**value_is_growing|$w|$x|$y']
 
     output = ''
     for tmp in proto_text:
         t = eqs.get_random_template(tmp)
-        s = gen.generate_sentence_from_template(t, vars)
+        s = gen.generate_sentence_from_metatemplate(t, vars)
         if output == '':
             output = s
         else:
@@ -207,10 +206,10 @@ if __name__ == "__main__":
     vars = dict()
     vars['aa'] = a
     vars['bb'] = b
-    vars['st'] = 'function'
+    vars['st'] = 'this function'
 
-    gen = test_generator()
-    eqs = equivalent_sentences()
+    gen = Text_generator()
+    eqs = Equivalent_sentences()
 
     template = '{This} function {increases} from $aa to $bb.'
     s = gen.generate_sentence_from_template(template, vars)
@@ -226,7 +225,7 @@ if __name__ == "__main__":
     assert s == 'This function raises from 8 to 12.'
 
     # test homonyms
-    template = '{$Close-shut} that fucking {door} please.'
+    template = '{$Shut} that fucking {door} please.'
     s = gen.generate_sentence_from_template(template, vars)
     log_debug(s, 'generated sentence', std_out=True)
     assert s == 'Close that fucking door please.'
@@ -239,39 +238,42 @@ if __name__ == "__main__":
     log_debug(s, 'generated sentence', std_out=True)
     assert s == 'Shut that fucking door please.'
 
-    template = '{This} $st {increases} from $aa to $bb.'
+    template = '$st {increases} from $aa to $bb.'
     s = gen.generate_sentence_from_template(template, vars)
     log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'This function increases from 8 to 12.'
+    assert s == 'This function grows from 8 to 12.'
 
 
 
     ####################################
-    t = eqs.get_random_template('$$growing_function|$st|$aa|$bb')
+    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
     log_debug(t, 'template', std_out=True)
-    assert t == 'Notice that on the interval [$aa, $bb] the $st is {growing}.'
+    assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
     s = gen.generate_sentence_from_template(t, vars)
     log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Notice that on the interval [8, 12] the function is raising.'
+    assert s == 'Next we observe that this function raises in the interval from 8 to 12.'
 
 
-    t = eqs.get_random_template('$$growing_function|$st|$aa|$bb')
+    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
     log_debug(t, 'template', std_out=True)
-    assert t == '{Next we observe that} this $st {raises} in the interval from $aa to $bb.'
+    assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
     s = gen.generate_sentence_from_template(t, vars)
     log_debug(s, '\tgenerated sentence', std_out=True)
     assert s == 'Next we observe that this function grows in the interval from 8 to 12.'
 
-    t = eqs.get_random_template('$$growing_function|$st|$aa|$bb')
+    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
     log_debug(t, 'template', std_out=True)
-    assert t == 'Notice that on the interval [$aa, $bb] the $st is {growing}.'
+    assert t == 'Notice that on the interval [$aa, $bb] $st is {growing}.'
     s = gen.generate_sentence_from_template(t, vars)
     log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Notice that on the interval [8, 12] the function is raising.'
+    assert s == 'Notice that on the interval [8, 12] this function is raising.'
 
-    t = eqs.get_random_template('{$Close-shut} that fucking {door} please.')
+    t = eqs.get_random_template('{$Shut} that fucking {door} please.')
     log_debug(t, 'template', std_out=True)
-    assert t == '{$Close-shut} that fucking {door} please.'
+    assert t == '{$Shut} that fucking {door} please.'
+    s = gen.generate_sentence_from_template(t, vars)
+    log_debug(s, '\tgenerated sentence', std_out=True)
+    assert s == 'Close that fucking door please.'
 
 
 
