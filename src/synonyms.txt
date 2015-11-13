@@ -1,0 +1,11 @@
+buy, purchase
+big, large
+on, upon
+increases, raises, grows
+increasing, raising, growing
+decreases, falls off, decays
+decreasing, decaying
+
+
+
+

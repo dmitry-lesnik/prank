@@ -4,6 +4,16 @@ from helpers import *
 
 
 
+def read_file(filename):
+    f = open(filename)
+    x = f.readlines()
+    print x
+    ret = []
+    for line in x:
+        z = line.split(',\s*')
+        print z
+
+
 def read_calculation_output(filename='calculation_output.txt'):
     A = pd.read_csv(filename, delimiter=',\s*')
     return A
@@ -59,20 +69,21 @@ def analyse_output(A):
 
 if __name__ == '__main__':
 
-    open_logger('read_methods.log')
+    # open_logger('read_methods.log')
+    #
+    # filename = 'calculation_output.txt'
+    #
+    # A = read_calculation_output(filename)
+    #
+    # log_debug(A, 'A', std_out=True)
+    #
+    # a, b, v, v_a0, v_b0 = analyse_output(A)
+    #
+    #
+    # print b
 
-    filename = 'calculation_output.txt'
 
-    A = read_calculation_output(filename)
-
-    log_debug(A, 'A', std_out=True)
-
-    a, b, v, v_a0, v_b0 = analyse_output(A)
-
-
-    print b
-
-
+    read_file('synonyms.txt')
 
 
 
