@@ -1,6 +1,8 @@
 import numpy as np
 from helpers import *
 from string import Template
+from read_methods import *
+
 
 import random
 
@@ -28,24 +30,20 @@ class Synonyms(object):
         self.capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
         self.synonyms = []
-        self.synonyms.append(['buy', 'purchase'])
-        self.synonyms.append(['big', 'large'])
-        self.synonyms.append(['on', 'upon'])
-        self.synonyms.append(['increases', 'raises', 'grows'])
-        self.synonyms.append(['increasing', 'raising', 'growing'])
-        self.synonyms.append(['decreases', 'falls off', 'decays'])
-        self.synonyms.append(['decreasing', 'decaying'])
-
         self.synonyms_ambiguous = dict()
-        self.synonyms_ambiguous['$shut'] = ['close', 'shut']
-        self.synonyms_ambiguous['$near'] = ['close', 'near']
-        self.synonyms_ambiguous['$near'] = ['close', 'near']
 
+        ret = read_synonyms('synonyms.txt')
+        for line in ret:
+            if len(line) > 0:
+                if line[0][0] == '&':
+                    self.synonyms_ambiguous[line[0]] = line[1:]
+                else:
+                    self.synonyms.append(line)
 
     def get_synonyms_list(self, w):
 
         # first check homonyms
-        if w[0] == '$':
+        if w[0] == '&':
             if w in self.synonyms_ambiguous:
                 return self.synonyms_ambiguous[w]
 
@@ -57,14 +55,12 @@ class Synonyms(object):
         return [w]
 
     def get_random_synonym(self, w):
-        # decapitalise = lambda s: s[:1].lower() + s[1:] if s else ''
-        # capitalise = lambda s: s[:1].upper() + s[1:] if s else ''
 
         cap = False
         if w[0] in self.capital_letters:
             w = decapitalise(w)
             cap = True
-        if w[0] == '$' and w[1] in self.capital_letters:
+        if w[0] == '&' and w[1] in self.capital_letters:
             w = decapitalise(w, first_n=2)
             cap = True
 
@@ -78,10 +74,7 @@ class Synonyms(object):
 
 class Equivalent_sentences(object):
     def __init__(self):
-        self.groups = dict()
-
-        self.groups['**value_is_growing'] = ['{Next we observe that} $p1 {raises} in the interval from $p2 to $p3.',
-                                              'Notice that on the interval [$p2, $p3] $p1 is {growing}.']
+        self.groups = read_templates('sentence_templates.txt')
 
     def get_sentences_list(self, key):
         if key in self.groups:
@@ -165,129 +158,38 @@ class Text_generator(object):
 
 
 
-def test_narrative():
-    a = 8
-    b = 12
-    vars = dict()
-    vars['x'] = a
-    vars['y'] = b
-    vars['w'] = 'omega'
+    def generate_block(self, p, vars):
+        """
+        Params
+        ------
+        p:      list(string)
+            Each string is a sentence, or sentence template
+            Empty string indicates a new paragraph
 
-    gen = Text_generator()
+        Returns
+        -------
+        ret:    string
+            output text
+        """
 
+        output = ''
+        for tmp in p:
+            if tmp == '':
+                output += '\n\n'
+            else:
+                t = self.eqs.get_random_template(tmp)
+                s = self.generate_sentence_from_metatemplate(t, vars)
+                if output == '':
+                    output = s
+                elif output[-1] == '\n':
+                    output = "".join([output, s])
+                else:
+                    output = " ".join([output, s])
 
-    proto_text = ['{This} function {increases} from $x to $y.',
-                  '{$Shut} that fucking {door} please.',
-                  '**value_is_growing|$w|$x|$y',
-                  'The value of $w {increases} from $x to $y.',
-                  '{$Shut} that fucking {door} please.',
-                  '**value_is_growing|$w|$x|$y']
-
-    output = ''
-    for tmp in proto_text:
-        t = eqs.get_random_template(tmp)
-        s = gen.generate_sentence_from_metatemplate(t, vars)
-        if output == '':
-            output = s
-        else:
-            output = " ".join([output, s])
-        log_debug(output, 'output so far')
-
+        return output
 
 
 if __name__ == "__main__":
     open_logger('text_generator.log')
-    random.seed(119)
-
-    ###########################################
-
-    a = 8
-    b = 12
-    vars = dict()
-    vars['aa'] = a
-    vars['bb'] = b
-    vars['st'] = 'this function'
-
-    gen = Text_generator()
-    eqs = Equivalent_sentences()
-
-    template = '{This} function {increases} from $aa to $bb.'
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'This function increases from 8 to 12.'
-
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'This function raises from 8 to 12.'
-
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'This function raises from 8 to 12.'
-
-    # test homonyms
-    template = '{$Shut} that fucking {door} please.'
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'Close that fucking door please.'
-
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'Close that fucking door please.'
-
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'Shut that fucking door please.'
-
-    template = '$st {increases} from $aa to $bb.'
-    s = gen.generate_sentence_from_template(template, vars)
-    log_debug(s, 'generated sentence', std_out=True)
-    assert s == 'This function grows from 8 to 12.'
-
-
-
-    ####################################
-    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
-    log_debug(t, 'template', std_out=True)
-    assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
-    s = gen.generate_sentence_from_template(t, vars)
-    log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Next we observe that this function raises in the interval from 8 to 12.'
-
-
-    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
-    log_debug(t, 'template', std_out=True)
-    assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
-    s = gen.generate_sentence_from_template(t, vars)
-    log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Next we observe that this function grows in the interval from 8 to 12.'
-
-    t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
-    log_debug(t, 'template', std_out=True)
-    assert t == 'Notice that on the interval [$aa, $bb] $st is {growing}.'
-    s = gen.generate_sentence_from_template(t, vars)
-    log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Notice that on the interval [8, 12] this function is raising.'
-
-    t = eqs.get_random_template('{$Shut} that fucking {door} please.')
-    log_debug(t, 'template', std_out=True)
-    assert t == '{$Shut} that fucking {door} please.'
-    s = gen.generate_sentence_from_template(t, vars)
-    log_debug(s, '\tgenerated sentence', std_out=True)
-    assert s == 'Close that fucking door please.'
-
-
-
-    test_narrative()
-
-
-
-
-
-
-
-
-
-
-
 
 

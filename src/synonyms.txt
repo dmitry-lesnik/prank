@@ -5,7 +5,5 @@ increases, raises, grows
 increasing, raising, growing
 decreases, falls off, decays
 decreasing, decaying
-
-
-
-
+&shut, close, shut
+&near, close, near

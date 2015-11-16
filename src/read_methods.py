@@ -5,6 +5,11 @@ from helpers import *
 
 
 def read_synonyms(filename):
+    """
+    Returns:
+    ret:    list of lists
+        each line is a list of words
+    """
     f = open(filename)
     x = f.readlines()
     ret = []
@@ -17,10 +22,45 @@ def read_synonyms(filename):
     f.close()
     return ret
 
+
+def read_templates(filename):
+    """
+    Returns
+    -------
+    ret:    dict(key, list(string))
+        each entry is a list of equivalent sentences
+        key is a string with prefix **
+
+    """
+    f = open(filename)
+    lines = f.readlines()
+    ret = dict()
+    key = 'key_missing'
+    for line in lines:
+        z = line.strip(' \n')
+        if len(z) == 0:
+            pass
+        elif z[0] == '#':
+            # skip comment
+            pass
+        elif z[0:2] == '**':
+            # this is a new entry
+            key = z
+            ret[key] = []
+        else:
+            # this is the entry continuation
+            if key == 'key_missing':
+                raise RuntimeError('sentence_templates should start with a key with a prefix **')
+            ret[key].append(z)
+
+    f.close()
+    return ret
+
+
+
 def read_calculation_output(filename='calculation_output.txt'):
     A = pd.read_csv(filename, delimiter=',\s*')
     return A
-
 
 
 def analyse_output(A):
@@ -72,8 +112,8 @@ def analyse_output(A):
 
 if __name__ == '__main__':
 
-    # open_logger('read_methods.log')
-    #
+    open_logger('read_methods.log')
+
     # filename = 'calculation_output.txt'
     #
     # A = read_calculation_output(filename)
@@ -86,7 +126,7 @@ if __name__ == '__main__':
     # print b
 
 
-    ret = read_synonyms('synonyms.txt')
+    ret = read_templates('sentence_templates.txt')
 
     log_debug(ret, 'ret', std_out=True)
 
