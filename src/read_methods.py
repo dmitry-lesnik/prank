@@ -4,15 +4,18 @@ from helpers import *
 
 
 
-def read_file(filename):
+def read_synonyms(filename):
     f = open(filename)
     x = f.readlines()
-    print x
     ret = []
     for line in x:
-        z = line.split(',\s*')
-        print z
-
+        z = line.split(',')
+        for i in range(len(z)):
+            z[i] = z[i].strip(' \n')
+        if z != ['']:
+            ret.append(z)
+    f.close()
+    return ret
 
 def read_calculation_output(filename='calculation_output.txt'):
     A = pd.read_csv(filename, delimiter=',\s*')
@@ -83,7 +86,9 @@ if __name__ == '__main__':
     # print b
 
 
-    read_file('synonyms.txt')
+    ret = read_synonyms('synonyms.txt')
+
+    log_debug(ret, 'ret', std_out=True)
 
 
 
