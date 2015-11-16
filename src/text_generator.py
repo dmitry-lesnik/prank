@@ -96,6 +96,19 @@ class Equivalent_sentences(object):
         return sentence_tmp
 
 
+class Variants(object):
+    def __init__(self):
+        self.block_template = []
+
+
+    def read_from_file(self, filename):
+        f = open(filename)
+
+
+        f.close()
+
+
+
 
 class Text_generator(object):
     def __init__(self):
