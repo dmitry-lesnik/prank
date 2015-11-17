@@ -18,7 +18,7 @@ class TestGenerator(object):
         gen = Text_generator()
         eqs = Equivalent_sentences()
 
-        template = '{This} function {increases} from $aa to $bb.'
+        template = '<<This>> function <<increases>> from $aa to $bb.'
         s = gen.generate_sentence_from_template(template, self.vars)
         log_debug(s, 'generated sentence', std_out=True)
         assert s == 'This function increases from 8 to 12.'
@@ -32,7 +32,7 @@ class TestGenerator(object):
         assert s == 'This function raises from 8 to 12.'
 
         # test homonyms
-        template = '{&Shut} that fucking {door} please.'
+        template = '<<&Shut>> that fucking <<door>> please.'
         s = gen.generate_sentence_from_template(template, self.vars)
         log_debug(s, 'generated sentence', std_out=True)
         assert s == 'Close that fucking door please.'
@@ -45,7 +45,7 @@ class TestGenerator(object):
         log_debug(s, 'generated sentence', std_out=True)
         assert s == 'Shut that fucking door please.'
 
-        template = '$st {increases} from $aa to $bb.'
+        template = '$st <<increases>> from $aa to $bb.'
         s = gen.generate_sentence_from_template(template, self.vars)
         log_debug(s, 'generated sentence', std_out=True)
         assert s == 'This function grows from 8 to 12.'
@@ -55,29 +55,29 @@ class TestGenerator(object):
         ####################################
         t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
         log_debug(t, 'template', std_out=True)
-        assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
+        assert t == '<<Next we observe that>> $st <<raises>> in the interval from $aa to $bb.'
         s = gen.generate_sentence_from_template(t, self.vars)
         log_debug(s, '\tgenerated sentence', std_out=True)
-        assert s == 'Next we observe that this function raises in the interval from 8 to 12.'
+        assert s == 'We have observed that this function raises in the interval from 8 to 12.'
 
 
         t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
         log_debug(t, 'template', std_out=True)
-        assert t == '{Next we observe that} $st {raises} in the interval from $aa to $bb.'
+        assert t == '<<Next we observe that>> $st <<raises>> in the interval from $aa to $bb.'
         s = gen.generate_sentence_from_template(t, self.vars)
         log_debug(s, '\tgenerated sentence', std_out=True)
-        assert s == 'Next we observe that this function grows in the interval from 8 to 12.'
+        assert s == 'We have observed that this function grows in the interval from 8 to 12.'
 
         t = eqs.get_random_template('**value_is_growing|$st|$aa|$bb')
         log_debug(t, 'template', std_out=True)
-        assert t == 'Notice that on the interval [$aa, $bb] $st is {growing}.'
+        assert t == 'Notice that on the interval [$aa, $bb] $st is <<growing>>.'
         s = gen.generate_sentence_from_template(t, self.vars)
         log_debug(s, '\tgenerated sentence', std_out=True)
         assert s == 'Notice that on the interval [8, 12] this function is raising.'
 
-        t = eqs.get_random_template('{&Shut} that fucking {door} please.')
+        t = eqs.get_random_template('<<&Shut>> that fucking <<door>> please.')
         log_debug(t, 'template', std_out=True)
-        assert t == '{&Shut} that fucking {door} please.'
+        assert t == '<<&Shut>> that fucking <<door>> please.'
         s = gen.generate_sentence_from_template(t, self.vars)
         log_debug(s, '\tgenerated sentence', std_out=True)
         assert s == 'Close that fucking door please.'
@@ -89,22 +89,64 @@ class TestGenerator(object):
 
         gen = Text_generator()
 
-        proto_text = ['{This} function {increases} from $x to $y.',
-                      '{&Shut} that fucking {door} please.',
+        proto_text = ['<<This>> function <<increases>> from $x to $y.',
+                      '<<&Shut>> that fucking <<door>> please.',
                       '**value_is_growing|$w|$x|$y',
                       '',
-                      'The value of $w {increases} from $x to $y.',
-                      '{&Shut} that fucking {door} please.',
+                      'The value of $w <<increases>> from $x to $y.',
+                      '<<&Shut>> that fucking <<door>> please.',
                       '**value_is_growing|$w|$x|$y']
 
         text = gen.generate_block(proto_text, self.vars)
         log_debug(text, 'text', std_out=True)
 
-        expected_text = 'This function increases from 7 to 11. Shut that fucking door please. ' \
-                        'Notice that on the interval [7, 11] $\omega$ is raising.\n\n' \
-                        'The value of $\omega$ increases from 7 to 11. Shut that fucking door please. ' \
-                        'Next we observe that $\omega$ increases in the interval from 7 to 11.'
+        expected_text = 'This function increases from 7 to 11. Close that fucking door please. ' \
+                        'Notice that on the interval [7, 11] $\omega$ is increasing.\n\n' \
+                        'The value of $\omega$ raises from 7 to 11. ' \
+                        'Close that fucking door please. ' \
+                        'We have observed that $\omega$ raises in the interval from 7 to 11.'
         assert text == expected_text
+
+
+    def test_variants(self):
+
+
+        random.seed(100)
+
+        gen = Text_generator()
+
+        v = Variants()
+        ret = v.read_from_file('test_variants.txt')
+        log_debug(ret, 'variants')
+
+        p = v.random_variant()
+        t = gen.generate_block(p, self.vars)
+        log_debug(t, 'random text', std_out=True)
+        expected_text = 'Variant 1 sentence 1. Variant 1 sentence 2. Variant 1 sentence 3.'
+        assert t == expected_text
+
+
+        p = v.random_variant()
+        t = gen.generate_block(p, self.vars)
+        log_debug(t, 'random text', std_out=True)
+        expected_text = 'Variant 2 sentence 1. Variant 2 sentence 2.\n\nVariant 2 sentence 3.'
+        assert t == expected_text
+
+        p = v.random_variant()
+        t = gen.generate_block(p, self.vars)
+        log_debug(t, 'random text', std_out=True)
+        expected_text = 'Variant 3 sentence 1. Variant 3.2 sentence 2. ' \
+                        'Notice that on the interval [7, 11] $\omega$ is raising. ' \
+                        'Variant 3 sentence 3.'
+        assert t == expected_text
+
+        p = v.random_variant()
+        t = gen.generate_block(p, self.vars)
+        log_debug(t, 'random text', std_out=True)
+        expected_text = 'Variant 3 sentence 1. Variant 3.2 sentence 2. ' \
+                        'We have observed that $\omega$ increases in the interval from 7 to 11. ' \
+                        'Variant 3 sentence 3.'
+        assert t == expected_text
 
 
 
@@ -115,6 +157,7 @@ if __name__ == '__main__':
     T = TestGenerator()
     T.test_generate_sentence_from_template()
     T.test_generate_block()
+    T.test_variants()
 
 
 

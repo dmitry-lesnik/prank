@@ -2,7 +2,11 @@
 # comment
 
 **value_is_growing
-{Next we observe that} $p1 {raises} in the interval from $p2 to $p3.
-Notice that on the interval [$p2, $p3] $p1 is {growing}.
+<<Next we observe that>> $p1 <<raises>> in the interval from $p2 to $p3.
+Notice that on the interval [$p2, $p3] $p1 is <<growing>>.
 
+
+**value_is_decreasing
+<<Next we observe that>> $p1 <<decreases>> in the interval from $p2 to $p3.
+It turns out that on the interval [$p2, $p3] $p1 is <<decreasing>>.
 

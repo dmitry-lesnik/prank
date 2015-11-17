@@ -1,0 +1,40 @@
+
+$begin_variants =========================
+
+${
+    Variant 1 sentence 1.
+    Variant 1 sentence 2.
+    Variant 1 sentence 3.
+$}
+
+${
+    Variant 2 sentence 1.
+    Variant 2 sentence 2.
+
+    Variant 2 sentence 3.
+$}
+
+
+${
+    Variant 3 sentence 1.
+    $begin_variants =========================
+	${
+	    Variant 3.1 sentence 2 <<grows>>.
+        **value_is_decreasing|$st|$aa|bb$
+    $}
+    
+    ${
+	    Variant 3.2 sentence 2.
+        **value_is_growing|$w|$x|$y
+    $}
+    $end_variants ==================
+    # comment
+    Variant 3 sentence 3.
+$}
+
+	
+
+$end_variants ==================
+
+
+

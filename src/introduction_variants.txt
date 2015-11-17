@@ -1,0 +1,47 @@
+
+$begin_variants =========================
+
+${
+    \section{Introduction version 1}
+
+    Introduction 1, sentence 1.
+    Introduction 1, sentence 2.
+    $begin_variants =========================
+        ${
+            Itroduction 1, sentence 3 (var 1).
+            Itroduction 1, sentence 4 (var 1).
+        $}
+        
+        ${
+            Itroduction 1, sentence 3 (var 2).
+            Itroduction 1, sentence 4 (var 2).
+        $}
+    $end_variants ==================
+    **value_is_decreasing|$w|$x|$y
+$}
+
+${
+    \section{Introduction version 1}
+
+    Introduction 2, sentence 1.
+    Introduction 2, sentence 2.
+    $begin_variants =========================
+        ${
+            Itroduction 2, sentence 3 (var 1).
+            Itroduction 2, sentence 4 (var 1).
+        $}
+        
+        ${
+            Itroduction 2, sentence 3 (var 2).
+            Itroduction 2, sentence 4 (var 2).
+        $}
+    $end_variants ==================
+    **value_is_growing|$w|$x|$y
+$}
+
+
+
+$end_variants ==================
+
+
+
