@@ -21,7 +21,7 @@ ${
 $}
 
 ${
-    \section{Introduction version 1}
+    \section{Introduction version 2}
 
     Introduction 2, sentence 1.
     Introduction 2, sentence 2.
@@ -39,6 +39,13 @@ ${
     **value_is_growing|$w|$x|$y
 $}
 
+${
+    \section{Introduction version 3}
+
+    Introduction 3, sentence 1.
+    Introduction 3, sentence 2.
+    **value_is_growing|$w|$x|$y
+$}
 
 
 $end_variants ==================
