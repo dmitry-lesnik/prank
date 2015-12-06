@@ -11,7 +11,7 @@ from post_processing import *
 
 open_logger('generate_introduction.log')
 
-random.seed(100)
+random.seed(102)
 
 vars = dict()
 vars['aa'] = 8
@@ -26,7 +26,9 @@ gen = Text_generator()
 v = Variants()
 
 
-v.read_from_file('introduction_variants.txt')
+v.read_from_file('introduction_variants2.txt')
+
+log_debug(v.variants_list, "v.variants_list")
 
 p = v.random_variant()
 log_debug(p, 'random variant')

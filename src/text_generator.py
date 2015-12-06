@@ -117,18 +117,37 @@ class Variants(object):
 
     def read_from_file(self, filename):
         f = open(filename)
+        self.variants_list = []
+        item = []
 
-        ret = []
         while True:
             line = f.readline()
             if line == '':
                 break
-            line = line.strip(' \n\t')
+            line = line.strip(' \t')
+            if line == '\n':
+                item.append('')
+                continue
+            line = line.strip('\n')
+            if line[0:len(self.var_end_key)] == self.var_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.var_end_key))
+            if line[0:len(self.item_start_key)] == self.item_start_key:
+                raise RuntimeError('unexpected key {}'.format(self.item_start_key))
+            if line[0:len(self.item_end_key)] == self.item_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.item_end_key))
+            if line[0] == '#':
+                continue
             if line[0:len(self.var_start_key)] == self.var_start_key:
-                ret = self.read_from_stream(f)
-                break
+                tmp = Variants()
+                tmp.read_from_stream(f)
+                item.append(tmp)
+                continue
+
+            item.append(line)
+
+        self.variants_list.append(item)
         f.close()
-        return ret
+        return self.variants_list
 
     def read_from_stream(self, f):
         self.variants_list = []
@@ -155,7 +174,7 @@ class Variants(object):
                     if line == self.item_end_key:
                         break
                     if line[0:len(self.var_end_key)] == self.var_end_key:
-                        raise RuntimeError('unexpected key {}'.format(self.end_key))
+                        raise RuntimeError('unexpected key {}'.format(self.var_end_key))
                     if line[0] == '#':
                         continue
                     if line[0:len(self.var_start_key)] == self.var_start_key:

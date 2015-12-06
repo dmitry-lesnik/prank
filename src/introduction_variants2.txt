@@ -1,0 +1,41 @@
+\section{Introduction}
+
+Introduction, sentence 1.
+Introduction, sentence 2.
+
+$begin_variants ####################################
+	${
+		AAAAAA 1.
+		AAAAAA 1.
+	$}
+	
+	${
+		AAAAA 2.
+		AAAAA 2.
+	$}
+$end_variants ####################################
+**value_is_decreasing|$w|$x|$y
+One more sentence.
+$begin_variants ####################################
+${
+    BBB BBB BBB 1.
+    $begin_variants ####################################
+        ${
+            BBBBBBBBBB 1.1.
+            BBBBBBBBBB 1.1.
+        $}
+        
+        ${
+            bbbbbbbb 1.2.
+            bbbbbbbbbb 1.2.
+        $}
+    $end_variants ####################################
+    **value_is_growing|$w|$x|$y
+$}
+${
+    BBB 2.
+    **value_is_growing|$w|$x|$y
+$}
+$end_variants ####################################
+One last sentence.
+
