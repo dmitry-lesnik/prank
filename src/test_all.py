@@ -122,30 +122,30 @@ class TestGenerator(object):
         p = v.random_variant()
         t = gen.generate_block(p, self.vars)
         log_debug(t, 'random text', std_out=True)
-        expected_text = 'Variant 1 sentence 1. Variant 1 sentence 2. Variant 1 sentence 3.'
+        expected_text = 'Variant 1 sentence 1.\nVariant 1 sentence 2.\nVariant 1 sentence 3.\n'
         assert t == expected_text
 
 
         p = v.random_variant()
         t = gen.generate_block(p, self.vars)
         log_debug(t, 'random text', std_out=True)
-        expected_text = 'Variant 2 sentence 1. Variant 2 sentence 2.\n\nVariant 2 sentence 3.'
+        expected_text = 'Variant 2 sentence 1.\nVariant 2 sentence 2.\n\nVariant 2 sentence 3.\n'
         assert t == expected_text
 
         p = v.random_variant()
         t = gen.generate_block(p, self.vars)
         log_debug(t, 'random text', std_out=True)
-        expected_text = 'Variant 3 sentence 1. Variant 3.2 sentence 2. ' \
-                        'Notice that on the interval [7, 11] $\omega$ is raising. ' \
-                        'Variant 3 sentence 3.'
+        expected_text = 'Variant 3 sentence 1.\nVariant 3.2 sentence 2.\n' \
+                        'Notice that on the interval [7, 11] $\omega$ is raising.\n' \
+                        'Variant 3 sentence 3.\n'
         assert t == expected_text
 
         p = v.random_variant()
         t = gen.generate_block(p, self.vars)
         log_debug(t, 'random text', std_out=True)
-        expected_text = 'Variant 3 sentence 1. Variant 3.2 sentence 2. ' \
-                        'We have observed that $\omega$ increases in the interval from 7 to 11. ' \
-                        'Variant 3 sentence 3.'
+        expected_text = 'Variant 3 sentence 1.\nVariant 3.2 sentence 2.\n' \
+                        'We have observed that $\omega$ increases in the interval from 7 to 11.\n' \
+                        'Variant 3 sentence 3.\n'
         assert t == expected_text
 
 

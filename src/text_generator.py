@@ -83,12 +83,14 @@ class Equivalent_sentences(object):
             return [key]
 
     def get_random_template(self, metatemplate):
-        w = metatemplate.split('|')
+        w = metatemplate.strip('\n').split('|')
         sentences = self.get_sentences_list(w[0])
         i = 0
         if len(sentences) > 1:
             i = random.randint(0, len(sentences)-1)
         sentence_tmp = sentences[i]
+        if metatemplate[-1] == '\n':
+            sentence_tmp = ''.join([sentence_tmp, '\n'])
         if len(w) > 1:
             vars = dict()
             for j in range(1, len(w)):
@@ -125,10 +127,11 @@ class Variants(object):
             if line == '':
                 break
             line = line.strip(' \t')
-            if line == '\n':
-                item.append('')
-                continue
-            line = line.strip('\n')
+            # if line == '\n':
+            #     item.append('')
+            #     continue
+
+            # line = line.strip('\n')
             if line[0:len(self.var_end_key)] == self.var_end_key:
                 raise RuntimeError('unexpected key {}'.format(self.var_end_key))
             if line[0:len(self.item_start_key)] == self.item_start_key:
@@ -139,7 +142,7 @@ class Variants(object):
                 continue
             if line[0:len(self.var_start_key)] == self.var_start_key:
                 tmp = Variants()
-                tmp.read_from_stream(f)
+                tmp.read_items_from_stream(f)
                 item.append(tmp)
                 continue
 
@@ -149,7 +152,7 @@ class Variants(object):
         f.close()
         return self.variants_list
 
-    def read_from_stream(self, f):
+    def read_items_from_stream(self, f):
         self.variants_list = []
         while True:
             line = f.readline()
@@ -160,18 +163,19 @@ class Variants(object):
                 break
             if line[0:len(self.var_start_key)] == self.var_start_key:
                 raise RuntimeError('unexpected {}'.format(self.var_start_key))
-            if line == self.item_start_key:
+            if line[0:len(self.item_start_key)] == self.item_start_key:
                 item = []
                 while True:
                     line = f.readline()
                     if line == '':
                         raise RuntimeError('unexpected EOF. Missing key {}'.format(self.item_end_key))
                     line = line.strip(' \t')
-                    if line == '\n':
-                        item.append('')
-                        continue
-                    line = line.strip('\n')
-                    if line == self.item_end_key:
+                    # if line == '\n':
+                    #     item.append('')
+                    #     continue
+
+                    # line = line.strip('\n')
+                    if line[0:len(self.item_end_key)] == self.item_end_key:
                         break
                     if line[0:len(self.var_end_key)] == self.var_end_key:
                         raise RuntimeError('unexpected key {}'.format(self.var_end_key))
@@ -179,7 +183,7 @@ class Variants(object):
                         continue
                     if line[0:len(self.var_start_key)] == self.var_start_key:
                         tmp = Variants()
-                        tmp.read_from_stream(f)
+                        tmp.read_items_from_stream(f)
                         item.append(tmp)
                         continue
                     item.append(line)
@@ -192,7 +196,9 @@ class Variants(object):
         """
 
         num = len(self.variants_list)
-        i = random.randint(0, num-1)
+        i = 0
+        if num > 1:
+            i = random.randint(0, num-1)
         variant = self.variants_list[i]
         ret = []
         for line in variant:

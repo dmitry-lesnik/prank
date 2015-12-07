@@ -1,4 +1,3 @@
-
 $begin_variants =========================
 
 ${
@@ -32,9 +31,4 @@ ${
     Variant 3 sentence 3.
 $}
 
-	
-
 $end_variants ==================
-
-
-
