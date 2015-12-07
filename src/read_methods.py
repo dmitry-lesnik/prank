@@ -114,16 +114,16 @@ if __name__ == '__main__':
 
     open_logger('read_methods.log')
 
-    # filename = 'calculation_output.txt'
-    #
-    # A = read_calculation_output(filename)
-    #
-    # log_debug(A, 'A', std_out=True)
-    #
-    # a, b, v, v_a0, v_b0 = analyse_output(A)
-    #
-    #
-    # print b
+    filename = 'calculation_output.txt'
+
+    A = read_calculation_output(filename)
+
+    log_debug(A, 'A', std_out=True)
+
+    a, b, v, v_a0, v_b0 = analyse_output(A)
+
+
+    print b
 
 
     ret = read_templates('sentence_templates.txt')
