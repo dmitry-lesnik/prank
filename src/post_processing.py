@@ -226,6 +226,7 @@ def narrative(intervals):
 
 
 if __name__ == "__main__":
+
     open_logger('postprocessing.log')
 
     # input

@@ -5,6 +5,7 @@ from read_methods import *
 
 
 import random
+import os, sys
 
 
 # CAPITAL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -26,6 +27,10 @@ def capitalise(s):
 
 class Synonyms(object):
     def __init__(self, filename='synonyms.txt'):
+
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        filename = '/'.join([BASE_DIR, 'templates', filename])
+
 
         self.capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -74,6 +79,8 @@ class Synonyms(object):
 
 class Equivalent_sentences(object):
     def __init__(self, filename='sentence_templates.txt'):
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        filename = '/'.join([BASE_DIR, 'templates', filename])
         self.groups = read_templates(filename)
 
     def get_sentences_list(self, key):
@@ -334,6 +341,7 @@ if __name__ == "__main__":
     log_debug(p, 'random variant')
     t = gen.generate_block(p, vars)
     log_debug(t, 'generated text', std_out=True)
+
 
 
 

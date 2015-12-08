@@ -1,5 +1,5 @@
-from text_generator import *
-from helpers import *
+from src.text_generator import *
+from src.helpers import *
 
 class TestGenerator(object):
     def __init__(self):
@@ -151,6 +151,10 @@ class TestGenerator(object):
 
 
 if __name__ == '__main__':
+
+    import os, sys
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    print BASE_DIR
 
     open_logger('test_all.log')
 
