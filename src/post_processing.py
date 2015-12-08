@@ -179,6 +179,20 @@ def get_signature(intervals):
             sig.append(itv[0])
     return sig
 
+
+def get_full_analysis(x, y):
+    n = x.size
+    n1 = 10 * n
+    grad_x, grad_y, grad_sign = filtered_gradient(x, y, n1)
+    limits_x, signs = find_regions(grad_x, grad_sign)
+    intervals = monotonous_intervals(limits_x, signs)
+    sig = get_signature(intervals)
+
+    return intervals, sig
+
+
+
+
 def narrative(intervals):
     n = len(intervals)
 

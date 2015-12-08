@@ -43,23 +43,42 @@ log_debug(t, 'generated text', std_out=True)
 log_debug('\n------------------------')
 log_debug('post-processing\n')
 
-x = np.linspace(0., 5., 21)
-y = (x - 2.) ** 3 + 0.01 * x - 3. * np.exp(2. * (x - 4.))
+filename = 'calculation_output2.txt'
 
-n = x.size
-n1 = 10 * n
+A, a, b, v, v_a0, v_b0 = read_calculation_output(filename)
 
-grad_x, grad_y, grad_sign = filtered_gradient(x, y, n1)
+log_debug(A, 'A', std_out=True)
 
-limits_x, signs = find_regions(grad_x, grad_sign)
-log_debug(limits_x, 'limits_x')
-log_debug(signs, 'signs')
+# WKB_Re = v[:, 0]
+# WKB_Im = v[:, 1]
+# td_Re = v[:, 2]
+# td_Im = v[:, 3]
 
-intervals = monotonous_intervals(limits_x, signs)
+###############################
+#### fixed a ##################
 
-log_debug(intervals, 'intervals', std_out=True)
-sig = get_signature(intervals)
-log_debug(sig, 'signature', std_out=True)
+WKB_Re_a0 = v_a0[:, 0].astype(float, copy=False)
+WKB_Im_a0 = v_a0[:, 1].astype(float, copy=False)
+WKB_Re_b0 = v_b0[:, 0].astype(float, copy=False)
+WKB_Im_b0 = v_b0[:, 1].astype(float, copy=False)
+
+
+log_debug('\n============================================')
+log_debug('=======  WKB: Re(omega)  ===================')
+
+#--------------
+log_debug('fixed a:')
+intervals, signature = get_full_analysis(b, WKB_Re_a0)
+log_debug(intervals, 'intervals')
+log_debug(signature, 'signature')
+
+
+#--------------
+log_debug('fixed b:')
+intervals, signature = get_full_analysis(a, WKB_Re_b0)
+log_debug(intervals, 'intervals')
+log_debug(signature, 'signature')
+
 
 
 ###########################################################

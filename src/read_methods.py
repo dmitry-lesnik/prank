@@ -60,7 +60,8 @@ def read_templates(filename):
 
 def read_calculation_output(filename='calculation_output.txt'):
     A = pd.read_csv(filename, delimiter=',\s*')
-    return A
+    a, b, v, v_a0, v_b0 = analyse_output(A)
+    return A, a, b, v, v_a0, v_b0
 
 
 def analyse_output(A):
@@ -73,13 +74,13 @@ def analyse_output(A):
         columns 5 and 6 - Re(omega) and Im(omega) by time domain method
 
     """
-    a_full = A.values[:,0]
+    a_full = A.values[:,0].astype(float, copy=False)
     a = np.unique(a_full)
     log_debug(a, 'parameter a')
     a_name = A.columns[0]
     log_debug(a_name, 'a_name')
 
-    b_full = A.values[:,1]
+    b_full = A.values[:,1].astype(float, copy=False)
     b = np.unique(b_full)
     log_debug(b, 'parameter b')
     b_name = A.columns[1]
@@ -114,22 +115,29 @@ if __name__ == '__main__':
 
     open_logger('read_methods.log')
 
-    filename = 'calculation_output.txt'
+    # filename = 'calculation_output.txt'
+    #
+    # A = read_calculation_output(filename)
+    #
+    # log_debug(A, 'A', std_out=True)
+    #
+    # a, b, v, v_a0, v_b0 = analyse_output(A)
+    #
+    #
+    # print b
+    #
+    #
+    # ret = read_templates('sentence_templates.txt')
+    #
+    # log_debug(ret, 'ret', std_out=True)
 
-    A = read_calculation_output(filename)
+
+
+    filename = 'calculation_output2.txt'
+
+    A, a, b, v, v_a0, v_b0 = read_calculation_output(filename)
 
     log_debug(A, 'A', std_out=True)
-
-    a, b, v, v_a0, v_b0 = analyse_output(A)
-
-
-    print b
-
-
-    ret = read_templates('sentence_templates.txt')
-
-    log_debug(ret, 'ret', std_out=True)
-
 
 
 
