@@ -59,34 +59,24 @@ def read_templates(filename):
 
 
 def read_calculation_output(filename='calculation_output.txt'):
-    A = pd.read_csv(filename, delimiter=',\s*')
-    a, b, v, v_a0, v_b0 = extract_output(A)
-    return A, a, b, v, v_a0, v_b0
+
+    A_full = pd.read_csv(filename, delimiter=',\s*')
+    A_num = pd.read_csv(filename, delimiter=',\s*', na_values=['stable', 'error', '-'])
 
 
-def extract_output(A):
-    """
-    A: DataFrame
-        2D table with calculation output
-
-        columns 1 and 2 - parameters
-        columns 3 and 4 - Re(omega) and Im(omega) by WKB method
-        columns 5 and 6 - Re(omega) and Im(omega) by time domain method
-
-    """
-    a_full = A.values[:,0].astype(float, copy=False)
+    a_full = A_num.values[:,0].astype(float, copy=False)
     a = np.unique(a_full)
     log_debug(a, 'parameter a')
-    a_name = A.columns[0]
+    a_name = A_num.columns[0]
     log_debug(a_name, 'a_name')
 
-    b_full = A.values[:,1].astype(float, copy=False)
+    b_full = A_num.values[:,1].astype(float, copy=False)
     b = np.unique(b_full)
     log_debug(b, 'parameter b')
-    b_name = A.columns[1]
+    b_name = A_num.columns[1]
     log_debug(b_name, 'b_name')
 
-    v = A.values[:, 2:]
+    v = A_num.values[:, 2:]
 
     # mean value of parameter a
     n = a.size
@@ -96,7 +86,6 @@ def extract_output(A):
     n = b.size
     b0 = b[n/2]
     log_debug(b0, 'b0')
-
 
     # slice of values corresponding to mean value of parameters a and b
 
@@ -108,7 +97,15 @@ def extract_output(A):
     v_b0 = v[filter, :]
     log_debug(v_b0, 'v_b0')
 
-    return a, b, v, v_a0, v_b0
+    ret = dict()
+    ret['A_full'] = A_full
+    ret['A_num'] = A_num
+    ret['param_a'] = a
+    ret['param_b'] = b
+    ret['values_full'] = v
+    ret['values_slice_a0'] = v_a0
+    ret['values_slice_b0'] = v_b0
+    return ret
 
 
 if __name__ == '__main__':
@@ -119,9 +116,13 @@ if __name__ == '__main__':
 
     filename = 'calculation_output.txt'
 
-    A, a, b, v, v_a0, v_b0 = read_calculation_output(filename)
+    ret = read_calculation_output(filename)
 
-    log_debug(A, 'A', std_out=True)
+    A_full = ret['A_full']
+    A_num = ret['A_num']
+
+    log_debug(A_full, 'A_full', std_out=True)
+    log_debug(A_num, 'A_num', std_out=True)
 
 
 

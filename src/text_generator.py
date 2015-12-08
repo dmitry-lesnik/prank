@@ -457,12 +457,12 @@ if __name__ == "__main__":
     p = s.get_section('introduction')
     log_debug(p, 'section')
     t = gen.generate_block(p, vars)
-    log_debug(t, 'generated text', std_out=True)
+    log_debug(t, 'generated text:\n', std_out=True)
 
 
     p = s.get_section('conclusion1')
     log_debug(p, 'section')
     t = gen.generate_block(p, vars)
-    log_debug(t, 'generated text', std_out=True)
+    log_debug(t, 'generated text:\n', std_out=True)
 
 

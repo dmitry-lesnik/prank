@@ -59,7 +59,9 @@ def log_debug(s, key='', tab=0, std_out=False, level=0):
     message = _get_indent(tab, with_global=True)
     global_tab = _GLOBAL_INDENT
     if key is not '':
-        message += (key + ': ')
+        message += key
+        if key[-1] != '\n':
+            message += ': '
     if isinstance(s, tuple) and False:
         for idx, si in enumerate(s):
             log_debug(to_str(si, tab + global_tab, first_tab=False), key + "_" + str(idx), tab, std_out)

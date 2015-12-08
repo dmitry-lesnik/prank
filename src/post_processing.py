@@ -78,7 +78,7 @@ def filtered_gradient(x, y, n1):
 
     log_debug(x, 'x')
     log_debug(y, 'y')
-    log_debug(eps, 'epsilon estimate', std_out=True)
+    log_debug(eps, 'epsilon estimate')
     log_debug(grad_x, 'grad_x')
     log_debug(grad_y, 'grad_y')
     log_debug(grad_sign, 'grad_sign')
