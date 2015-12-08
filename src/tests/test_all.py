@@ -148,6 +148,29 @@ class TestGenerator(object):
                         'Variant 3 sentence 3.\n'
         assert t == expected_text
 
+    def test_sections(self):
+        random.seed(101)
+
+        gen = Text_generator()
+
+        s = Sections()
+        s.read_from_file('test_sections_list.txt')
+        s.read_from_file('test_sections_list2.txt', reset=False)
+
+
+        p = s.get_section('conclusion2')
+        log_debug(p, 'section')
+        t = gen.generate_block(p, self.vars)
+        log_debug(t, 'generated text', std_out=True)
+
+        expected_text = 'Most US Muslims have arrived in the US in recent decades, ' \
+        'making them a relatively fresh immigrant group. ' \
+        'Many say they are watching the billionaire real estate mogul-turned-reality ' \
+        'TV star-turned rising political star with alarm.\n' \
+        'AAAAA 2.\nAAAAA 2.\n'
+
+        assert t == expected_text
+
 
 
 if __name__ == '__main__':
@@ -162,6 +185,7 @@ if __name__ == '__main__':
     T.test_generate_sentence_from_template()
     T.test_generate_block()
     T.test_variants()
+    T.test_sections()
 
 
 

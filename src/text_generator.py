@@ -23,13 +23,22 @@ def capitalise(s):
         return ''
 
 
+class keywords_list(object):
+    def __init__(self):
+        self.var_start_key = '$begin_variants'
+        self.var_end_key = '$end_variants'
+        self.item_start_key = '${'
+        self.item_end_key = '$}'
+        self.section_begin_key = '$begin_section'
+        self.section_end_key = '$end_section'
 
 
 class Synonyms(object):
-    def __init__(self, filename='synonyms.txt'):
+    def __init__(self, filename=None):
 
-        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-        filename = '/'.join([BASE_DIR, 'templates', filename])
+        if filename is None:
+            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+            filename = '/'.join([BASE_DIR, 'templates', 'synonyms.txt'])
 
 
         self.capital_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -78,9 +87,12 @@ class Synonyms(object):
 
 
 class Equivalent_sentences(object):
-    def __init__(self, filename='sentence_templates.txt'):
-        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-        filename = '/'.join([BASE_DIR, 'templates', filename])
+    def __init__(self, filename=None):
+
+        if filename is None:
+            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+            filename = '/'.join([BASE_DIR, 'templates', 'sentence_templates.txt'])
+
         self.groups = read_templates(filename)
 
     def get_sentences_list(self, key):
@@ -118,36 +130,37 @@ class Variants(object):
     def __init__(self):
         self.variants_list = []
 
-        self.var_start_key = '$begin_variants'
-        self.var_end_key = '$end_variants'
-        self.item_start_key = '${'
-        self.item_end_key = '$}'
+        self.kw = keywords_list()
+        # self.var_start_key = '$begin_variants'
+        # self.var_end_key = '$end_variants'
+        # self.item_start_key = '${'
+        # self.item_end_key = '$}'
 
 
-    def read_from_file(self, filename):
+    def read_from_file_2(self, filename=None):
+
+        if filename is None:
+            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+            filename = '/'.join([BASE_DIR, 'templates', 'variants.txt'])
+
         f = open(filename)
         self.variants_list = []
         item = []
 
         while True:
             line = f.readline()
+            line = line.strip(' \t')
             if line == '':
                 break
-            line = line.strip(' \t')
-            # if line == '\n':
-            #     item.append('')
-            #     continue
-
-            # line = line.strip('\n')
-            if line[0:len(self.var_end_key)] == self.var_end_key:
-                raise RuntimeError('unexpected key {}'.format(self.var_end_key))
-            if line[0:len(self.item_start_key)] == self.item_start_key:
-                raise RuntimeError('unexpected key {}'.format(self.item_start_key))
-            if line[0:len(self.item_end_key)] == self.item_end_key:
-                raise RuntimeError('unexpected key {}'.format(self.item_end_key))
+            if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.var_end_key))
+            if line[0:len(self.kw.item_start_key)] == self.kw.item_start_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.item_start_key))
+            if line[0:len(self.kw.item_end_key)] == self.kw.item_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.item_end_key))
             if line[0] == '#':
                 continue
-            if line[0:len(self.var_start_key)] == self.var_start_key:
+            if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
                 tmp = Variants()
                 tmp.read_items_from_stream(f)
                 item.append(tmp)
@@ -159,36 +172,63 @@ class Variants(object):
         f.close()
         return self.variants_list
 
+
+    def read_from_file(self, filename=None):
+
+        if filename is None:
+            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+            filename = '/'.join([BASE_DIR, 'templates', 'variants.txt'])
+
+        f = open(filename)
+        self.variants_list = []
+
+        while True:
+            line = f.readline()
+            if line == '':
+                break
+            line = line.strip(' \t\n')
+            if line == '':
+                continue
+            if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.var_end_key))
+            if line[0:len(self.kw.item_start_key)] == self.kw.item_start_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.item_start_key))
+            if line[0:len(self.kw.item_end_key)] == self.kw.item_end_key:
+                raise RuntimeError('unexpected key {}'.format(self.kw.item_end_key))
+            if line[0] == '#':
+                continue
+            if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
+                self.read_items_from_stream(f)
+                break
+        f.close()
+        return self.variants_list
+
     def read_items_from_stream(self, f):
         self.variants_list = []
         while True:
             line = f.readline()
             if line == '':
-                raise RuntimeError('unexpected EOF. Missing key {}'.format(self.var_end_key))
+                raise RuntimeError('unexpected EOF. Missing key {}'.format(self.kw.var_end_key))
             line = line.strip(' \n\t')
-            if line[0:len(self.var_end_key)] == self.var_end_key:
+            if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
                 break
-            if line[0:len(self.var_start_key)] == self.var_start_key:
-                raise RuntimeError('unexpected {}'.format(self.var_start_key))
-            if line[0:len(self.item_start_key)] == self.item_start_key:
+            if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
+                raise RuntimeError('unexpected {}'.format(self.kw.var_start_key))
+            if line[0:len(self.kw.item_start_key)] == self.kw.item_start_key:
                 item = []
                 while True:
                     line = f.readline()
-                    if line == '':
-                        raise RuntimeError('unexpected EOF. Missing key {}'.format(self.item_end_key))
                     line = line.strip(' \t')
-                    # if line == '\n':
-                    #     item.append('')
-                    #     continue
+                    if line == '':
+                        raise RuntimeError('unexpected EOF. Missing key {}'.format(self.kw.item_end_key))
 
-                    # line = line.strip('\n')
-                    if line[0:len(self.item_end_key)] == self.item_end_key:
+                    if line[0:len(self.kw.item_end_key)] == self.kw.item_end_key:
                         break
-                    if line[0:len(self.var_end_key)] == self.var_end_key:
-                        raise RuntimeError('unexpected key {}'.format(self.var_end_key))
+                    if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
+                        raise RuntimeError('unexpected key {}'.format(self.kw.var_end_key))
                     if line[0] == '#':
                         continue
-                    if line[0:len(self.var_start_key)] == self.var_start_key:
+                    if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
                         tmp = Variants()
                         tmp.read_items_from_stream(f)
                         item.append(tmp)
@@ -218,14 +258,80 @@ class Variants(object):
         return ret
 
 
+class Sections(object):
+    def __init__(self):
+        self.sections = dict()
+        self.kw = keywords_list()
+
+    def read_from_file(self, filename=None, reset=True):
+        if reset:
+            self.sections = dict()
+
+        if filename is None:
+            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+            filename = '/'.join([BASE_DIR, 'templates', 'sections_list.txt'])
+        f = open(filename)
+
+        while True:
+            line = f.readline()
+            line = line.strip(' \t')
+            if line == '':
+                break
+            if line[0] == '#':
+                continue
+
+            if line[0:len(self.kw.section_begin_key)] == self.kw.section_begin_key:
+                section = []
+                key = line[len(self.kw.section_begin_key):].strip('}{\n')
+                if key == '':
+                    raise RuntimeError('missing section name')
+
+                while True:
+                    line = f.readline()
+                    line = line.strip(' \t')
+                    if line == '':
+                        break
+                    if line[0] == '#':
+                        continue
+                    if line[0:len(self.kw.section_end_key)] == self.kw.section_end_key:
+                        break
+
+                    if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
+                        tmp = Variants()
+                        tmp.read_items_from_stream(f)
+                        section.append(tmp)
+                        continue
+                    section.append(line)
+
+                self.sections[key] = section
+
+        return self.sections
+
+    def get_section(self, section_name):
+        if not section_name in self.sections:
+            return []
+        section = self.sections[section_name]
+
+        ret = []
+        for line in section:
+            if isinstance(line, basestring):
+                ret.append(line)
+            elif isinstance(line, Variants):
+                ret = ret + line.random_variant()
+            else:
+                raise RuntimeError('unexpected data type in section')
+        return ret
+
+
+
+
 
 
 class Text_generator(object):
-    def __init__(self):
-        self.syn = Synonyms()
-        self.eqs = Equivalent_sentences()
 
-
+    def __init__(self, synonyms_filename=None, eq_sent_filename=None):
+        self.syn = Synonyms(synonyms_filename)
+        self.eqs = Equivalent_sentences(eq_sent_filename)
 
     def parse_template(self, s):
         """
@@ -334,15 +440,29 @@ if __name__ == "__main__":
     gen = Text_generator()
     v = Variants()
 
+    #
+    # v.read_from_file('introduction_variants2.txt')
+    #
+    # p = v.random_variant()
+    # log_debug(p, 'random variant')
+    # t = gen.generate_block(p, vars)
+    # log_debug(t, 'generated text', std_out=True)
+    #
 
-    v.read_from_file('introduction_variants.txt')
 
-    p = v.random_variant()
-    log_debug(p, 'random variant')
+    s = Sections()
+    s.read_from_file()
+
+
+    p = s.get_section('introduction')
+    log_debug(p, 'section')
     t = gen.generate_block(p, vars)
     log_debug(t, 'generated text', std_out=True)
 
 
-
+    p = s.get_section('conclusion1')
+    log_debug(p, 'section')
+    t = gen.generate_block(p, vars)
+    log_debug(t, 'generated text', std_out=True)
 
 

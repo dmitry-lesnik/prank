@@ -22,17 +22,10 @@ vars['w'] = '$\omega$'
 
 
 gen = Text_generator()
-v = Variants()
+s = Sections()
+s.read_from_file()
 
 
-v.read_from_file('introduction_variants2.txt')
-
-log_debug(v.variants_list, "v.variants_list")
-
-p = v.random_variant()
-log_debug(p, 'random variant')
-t = gen.generate_block(p, vars)
-log_debug(t, 'generated text', std_out=True)
 
 
 
@@ -42,7 +35,7 @@ log_debug(t, 'generated text', std_out=True)
 log_debug('\n------------------------')
 log_debug('post-processing\n')
 
-filename = 'calculation_output2.txt'
+filename = 'calculation_output.txt'
 
 A, a, b, v, v_a0, v_b0 = read_calculation_output(filename)
 

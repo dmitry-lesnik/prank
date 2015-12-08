@@ -60,11 +60,11 @@ def read_templates(filename):
 
 def read_calculation_output(filename='calculation_output.txt'):
     A = pd.read_csv(filename, delimiter=',\s*')
-    a, b, v, v_a0, v_b0 = analyse_output(A)
+    a, b, v, v_a0, v_b0 = extract_output(A)
     return A, a, b, v, v_a0, v_b0
 
 
-def analyse_output(A):
+def extract_output(A):
     """
     A: DataFrame
         2D table with calculation output
@@ -115,25 +115,9 @@ if __name__ == '__main__':
 
     open_logger('read_methods.log')
 
-    # filename = 'calculation_output.txt'
-    #
-    # A = read_calculation_output(filename)
-    #
-    # log_debug(A, 'A', std_out=True)
-    #
-    # a, b, v, v_a0, v_b0 = analyse_output(A)
-    #
-    #
-    # print b
-    #
-    #
-    # ret = read_templates('sentence_templates.txt')
-    #
-    # log_debug(ret, 'ret', std_out=True)
 
 
-
-    filename = 'calculation_output2.txt'
+    filename = 'calculation_output.txt'
 
     A, a, b, v, v_a0, v_b0 = read_calculation_output(filename)
 

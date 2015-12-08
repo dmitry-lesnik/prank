@@ -1,3 +1,5 @@
+$begin_section{introduction}
+
 \documentclass[10pt]{article}
 %To use pdflatex, uncomment these lines, as well as the \href lines
 %in each entry
@@ -49,23 +51,23 @@ In higher than $D>4$ dimensions, the 2-sphere is replaced by a $D-2$-sphere. The
 The "tortoise" coordinate $r^*$ spans from $- \infty$ (black hole horizon) to $+ \infty$ (spacial infinity). Sometimes the space cannot be extended to infinity but to some other, distant cosmological horizon. The effective potential usually has the form of a smooth potential barrier with a peak at about 1.5 of the event horizon (from the origin).
 
 
-$begin_variants ####################################
-	${
-		AAAAAA 1.
-		AAAAAA 1.
-	$}
-	
-	${
-		AAAAA 2.
-		AAAAA 2.
-	$}
-$end_variants ####################################
+$begin_variants
+    ${
+        AAAAAA 1.
+        AAAAAA 1.
+    $}
+    
+    ${
+        AAAAA 2.
+        AAAAA 2.
+    $}
+$end_variants
 **value_is_decreasing|$w|$x|$y
 One more sentence.
-$begin_variants ####################################
+$begin_variants
 ${
     BBB BBB BBB 1.
-    $begin_variants ####################################
+    $begin_variants
         ${
             BBBBBBBBBB 1.1.
             BBBBBBBBBB 1.1.
@@ -75,13 +77,27 @@ ${
             bbbbbbbb 1.2.
             bbbbbbbbbb 1.2.
         $}
-    $end_variants ####################################
+    $end_variants
     **value_is_growing|$w|$x|$y
 $}
 ${
     BBB 2.
     **value_is_growing|$w|$x|$y
 $}
-$end_variants ####################################
+$end_variants
 One last sentence.
+Last sentence.
+$end_section
+
+
+$begin_section{conclusion1}
+    Trump's proposal for a "total and complete shutdown" of Muslims entering the US came after last week's deadly shooting in San Bernardino, California by a Muslim couple believed to have been radicalized by extremists.
+    
+    But Muslim leaders across the US -- including those viewed as US allies -- warn that the Republican candidate's rhetoric could further radicalize disaffected individuals as well as provoke attacks.
+$end_section
+
+$begin_section{conclusion2}
+    Most US Muslims have arrived in the US in recent decades, making them a relatively fresh immigrant group. Many say they are watching the billionaire real estate mogul-turned-reality TV star-turned rising political star with alarm.
+$end_section
+
 

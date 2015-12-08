@@ -1,0 +1,14 @@
+$begin_section{introduction2}
+    The world’s central bankers just got a helping hand from the world’s oil ministers.
+$end_section
+
+
+$begin_section{conclusion5}
+    West Texas Intermediate is trading at about $40 a barrel four days after the Organization of Petroleum Exporting Countries chose not to limit output, extending the commodity’s decline from its June 2014 peak of $107.73 and this year’s high of $62.58 in May.
+$end_section
+
+$begin_section{conclusion6}
+    “On net, central bankers should take this as a positive,” said Peter Dixon, an economist at Commerzbank in London. “This does help to stimulate demand by leaving a little bit of money in the pocket and providing a feel-good factor.”
+$end_section
+
+
