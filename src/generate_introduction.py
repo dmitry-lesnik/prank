@@ -77,6 +77,37 @@ log_debug(signature, 'signature')
 
 
 
+# list of parameter values, where time-domain values differ more than 10% from WKB values
+
+data = A_num.values
+N = data.shape[0]
+
+w_re = data[:, 2]
+w_im = data[:, 3]
+t_re = data[:, 4]
+t_im = data[:, 5]
+r1 = np.sqrt(w_re**2 + w_im**2)
+r2 = np.sqrt(t_re**2 + t_im**2)
+d = np.sqrt( (t_re - w_re)**2 + (t_im - w_im)**2)
+rel_d = 2. * d / (r1 + r2 + 1e-12)
+q_points = (rel_d > 0.001)
+
+
+#indicators of 'stable', 'error' and '-'
+
+st_points = (A_full['td_Re'] == 'stable').values
+er_points = (A_full['td_Re'] == 'error').values
+invalid_points = (A_full['td_Re'] == '-').values
+
+log_debug(q_points, 'q_points')
+log_debug(st_points, 'st_points')
+log_debug(er_points, 'er_points')
+log_debug(invalid_points, 'invalid_points')
+
+
+
+
+
 ###########################################################
 ########## simple narrative ###############################
 

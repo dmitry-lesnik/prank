@@ -285,6 +285,8 @@ class Sections(object):
                 key = line[len(self.kw.section_begin_key):].strip('}{\n')
                 if key == '':
                     raise RuntimeError('missing section name')
+                if key in self.sections:
+                    raise RuntimeError("section '{}' multiply defined".format(key))
 
                 while True:
                     line = f.readline()
@@ -451,7 +453,7 @@ if __name__ == "__main__":
 
 
     s = Sections()
-    s.read_from_file()
+    s.read_from_file('../templates/sections_list.txt')
 
 
     p = s.get_section('introduction')

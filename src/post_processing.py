@@ -76,12 +76,12 @@ def filtered_gradient(x, y, n1):
     grad_sign[grad_y < 0] = -1
     grad_sign[abs(grad_y) < eps] = 0
 
-    log_debug(x, 'x')
-    log_debug(y, 'y')
-    log_debug(eps, 'epsilon estimate')
-    log_debug(grad_x, 'grad_x')
-    log_debug(grad_y, 'grad_y')
-    log_debug(grad_sign, 'grad_sign')
+    # log_debug(x, 'x')
+    # log_debug(y, 'y')
+    # log_debug(eps, 'epsilon estimate')
+    # log_debug(grad_x, 'grad_x')
+    # log_debug(grad_y, 'grad_y')
+    # log_debug(grad_sign, 'grad_sign')
 
     return grad_x, grad_y, grad_sign
 
