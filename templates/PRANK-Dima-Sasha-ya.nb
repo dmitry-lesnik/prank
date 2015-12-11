@@ -1,0 +1,941 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     32808,        932]
+NotebookOptionsPosition[     31667,        897]
+NotebookOutlinePosition[     32046,        913]
+CellTagsIndexPosition[     32003,        910]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Real", " ", "part", " ", "of", " ", "omega", " ", 
+   RowBox[{"(", 
+    RowBox[{"frequency", " ", "of", " ", "osscialation"}], ")"}]}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"Imaginary", " ", "part", " ", "of", " ", "omega", " ", 
+  RowBox[{"(", 
+   RowBox[{"damping", " ", "rate"}], ")"}]}]}], "Input",
+ CellChangeTimes->{{3.6586839994375*^9, 3.65868404059375*^9}, {
+  3.658685217421875*^9, 3.658685218078125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Parameters", ":", " ", "P1"}], ",", " ", "P2", ",", " ", "P3", 
+   ",", " ", "P4", ",", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"P5", ".", "\[IndentingNewLine]", "Effective"}], " ", 
+     "potential"}], " ", "=", " ", "V"}]}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.658776116*^9, 3.658776162109375*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Case3A", " ", "-", " ", 
+   RowBox[{
+   "effective", " ", "potential", " ", "is", " ", "positive", " ", "definite",
+     " ", "and", " ", "has", " ", "a", " ", "single", " ", "peak"}]}], ",", 
+  " ", 
+  RowBox[{
+   RowBox[{
+   "the", " ", "difference", " ", "between", " ", "WKB", " ", "and", " ", 
+    "time"}], "-", 
+   RowBox[{"domain", " ", "realtively", " ", 
+    RowBox[{"small", ".", " "}]}]}]}]], "Input",
+ CellChangeTimes->{{3.65868522934375*^9, 3.658685263671875*^9}, 
+   3.65868530171875*^9, {3.65877173521875*^9, 3.65877176928125*^9}, {
+   3.658771799359375*^9, 3.658771816703125*^9}}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.753", "0.752", 
+    RowBox[{"-", "0.0901"}], 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.776", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.788", "0.790", 
+    RowBox[{"-", "0.0875"}], 
+    RowBox[{"-", "0.0870"}]},
+   {"0.3", "+", 
+    RowBox[{" ", "1"}], "0.800", "0.804", 
+    RowBox[{"-", "0.0870"}], 
+    RowBox[{"-", "0.0867"}]},
+   {"0.4", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.810", "0.816", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0859"}]},
+   {"0.5", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.823", "0.829", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0844"}]},
+   {"0.6", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.845", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.840", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0812"}]},
+   {"0.8", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.833", "0.845", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"-", "0.0780"}]},
+   {"0.9", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.831", "0.842", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"-", "0.0761"}]},
+   {"1.0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.825", "0.840", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"-", "0.0745"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.658770116953125*^9, 3.658770266375*^9}, 
+   3.658770844640625*^9, {3.65877127975*^9, 3.658771281265625*^9}, {
+   3.658771839828125*^9, 3.658771860203125*^9}, {3.65877498928125*^9, 
+   3.658775007453125*^9}, {3.658775940734375*^9, 3.658775960828125*^9}, {
+   3.658776169140625*^9, 3.658776174890625*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Generated", " ", 
+                   RowBox[{"text", ":", "  ", "1"}]}], ")"}], " ", 
+                 "\"\< The effective potential is positive definite for the \
+P1 changing in the range (P1_min, P2_max), so the perturbation is \
+stable.\>\""}], "\n", "                          ", "2"}], ")"}], " ", 
+              "\"\< The effective potential has a single extremum, so that \
+the WKB formula [WKBreference] can be applied.\>\""}], "\n", 
+             "                          ", "3"}], ")"}], " ", 
+           "\"\< The $Re \\omega$ is monotonically increasing, when P1 \
+increases until $P1 \\approx 0.6$ and then it is decreasing.\>\""}], 
+          "\[IndentingNewLine]", "           ", "4"}], ")"}], " ", 
+        "\"\< The $Im \\omega$ is monotonically decreasing, when P1 increases\
+\>\""}], " ", "\[IndentingNewLine]", "                ", "5"}], ")"}], 
+     "\"\< The difference between WKB and time data is relatively small \
+(within MAXIMAL-RELATIVE-ERROR percents)\>\""}], "\[IndentingNewLine]", 
+    "                     ", "6"}], ")"}], " ", 
+  "\"\<The larger P1, the higher is the error of the WKB method\
+\[IndentingNewLine]\>"}]], "Input",
+ CellChangeTimes->{{3.658770780234375*^9, 3.658770889984375*^9}, {
+  3.658770970640625*^9, 3.658771014265625*^9}, {3.658771048171875*^9, 
+  3.65877115190625*^9}, {3.658771224640625*^9, 3.65877138065625*^9}, {
+  3.658771523890625*^9, 3.658771726921875*^9}, {3.658771833203125*^9, 
+  3.658771834265625*^9}, {3.6587720571875*^9, 3.65877205746875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Case3B", " ", "-", " ", 
+   RowBox[{
+   "effective", " ", "potential", " ", "is", " ", "positive", " ", "definite",
+     " ", "and", " ", "has", " ", "a", " ", "single", " ", "peak"}]}], ",", 
+  " ", 
+  RowBox[{
+   RowBox[{
+   "the", " ", "difference", " ", "between", " ", "WKB", " ", "and", " ", 
+    "time"}], "-", 
+   RowBox[{"domain", " ", "is", " ", "not", " ", "always", " ", 
+    RowBox[{"small", ".", " "}]}]}]}]], "Input",
+ CellChangeTimes->{{3.6587718675625*^9, 3.658771893640625*^9}}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.753", "0.752", 
+    RowBox[{"-", "0.0901"}], 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.780", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.790", "0.790", 
+    RowBox[{"-", "0.0875"}], 
+    RowBox[{"-", "0.0870"}]},
+   {"0.3", "+", 
+    RowBox[{" ", "1"}], "0.820", "0.804", 
+    RowBox[{"-", "0.0870"}], 
+    RowBox[{"-", "0.0867"}]},
+   {"0.4", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.840", "0.816", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0859"}]},
+   {"0.5", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.853", "0.829", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0844"}]},
+   {"0.6", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.875", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.891", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0812"}]},
+   {"0.8", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.922", "0.845", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"-", "0.0780"}]},
+   {"0.9", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.935", "0.842", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"-", "0.0761"}]},
+   {"1.0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.965", "0.840", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"-", "0.0745"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.6587719398125*^9, 3.6587719995*^9}, {
+   3.65877496984375*^9, 3.65877498575*^9}, 3.65877596740625*^9, 
+   3.658776182390625*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Generated", " ", 
+                   RowBox[{"text", ":", "  ", "1"}]}], ")"}], " ", 
+                 "\"\< The effective potential is positive definite for the \
+P1 changing in the range (P1_min, P2_max), so the perturbation is \
+stable.\>\""}], "\n", "                          ", "2"}], ")"}], " ", 
+              "\"\< The effective potential has a single extremum, so that \
+the WKB formula [WKBreference] can be applied.\>\""}], "\n", 
+             "                          ", "3"}], ")"}], " ", 
+           "\"\< The $Re \\omega$ is monotonically increasing, when P1 \
+increases until $P1 \\approx 0.6$ and then it is decreasing.\>\""}], 
+          "\[IndentingNewLine]", "           ", "4"}], ")"}], " ", 
+        "\"\< The $Im \\omega$ is monotonically decreasing, when P1 increases\
+\>\""}], " ", "\[IndentingNewLine]", "                ", "5"}], ")"}], 
+     "\"\< The difference between WKB and time data is not small (up to \
+MAXIMAL-RELATIVE-ERROR percents)\>\""}], "\[IndentingNewLine]", 
+    "                     ", "6"}], ")"}], " ", 
+  "\"\<The larger P1, the higher is the error of the WKB method\>\""}]], \
+"Input",
+ CellChangeTimes->{{3.658772049625*^9, 3.65877209871875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Case2", " ", "-", " ", 
+   RowBox[{
+   "The", "  ", "effective", " ", "potential", "  ", "has", " ", "no", " ", 
+    "peak"}]}], ",", 
+  RowBox[{"the", " ", "WKB", " ", "formula", " ", "cannot", " ", "be", " ", 
+   RowBox[{"applied", ".", " "}]}]}]], "Input",
+ CellChangeTimes->{{3.6587721405625*^9, 3.658772140921875*^9}, {
+   3.658772192703125*^9, 3.65877219509375*^9}, {3.658772264734375*^9, 
+   3.658772284796875*^9}, 3.65877241484375*^9}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.752", "-", 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.775", "-", 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.790", "-", 
+    RowBox[{"-", "0.0870"}]},
+   {"0.3", "+", 
+    RowBox[{" ", "0"}], "-", "0.804", "-", 
+    RowBox[{"-", "0.0867"}]},
+   {"0.4", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.816", "-", 
+    RowBox[{"-", "0.0859"}]},
+   {"0.5", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.829", "-", 
+    RowBox[{"-", "0.0844"}]},
+   {"0.6", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.856", "-", 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.851", "-", 
+    RowBox[{"-", "0.0812"}]},
+   {"0.8", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.845", "-", 
+    RowBox[{"-", "0.0780"}]},
+   {"0.9", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.842", "-", 
+    RowBox[{"-", "0.0761"}]},
+   {"1.0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "0"}], "-", "0.840", "-", 
+    RowBox[{"-", "0.0745"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.65877230284375*^9, 3.658772310734375*^9}, {
+   3.65877235540625*^9, 3.658772392265625*^9}, {3.65877495903125*^9, 
+   3.658774965734375*^9}, 3.6587759739375*^9, 3.658776185796875*^9, {
+   3.658780322796875*^9, 3.658780333953125*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"Generated", " ", 
+              RowBox[{"text", ":", "  ", "1"}]}], ")"}], " ", 
+            "\"\< The effective potential is positive definite for the P1 \
+changing in the range (P1_min, P2_max), so the perturbation is stable.\>\""}],
+            "\n", "                          ", "2"}], ")"}], " ", 
+         "\"\< The effective potential has no maximum, so that the WKB \
+formula [WKBreference] cannot be applied.\>\""}], "\n", 
+        "                          ", "3"}], ")"}], " ", 
+      "\"\< The $Re \\omega$ is monotonically increasing, when P1 increases \
+until $P1 \\approx 0.6$ and then it is decreasing.\>\""}], 
+     "\[IndentingNewLine]", "                     ", "4"}], ")"}], " ", 
+   "\"\< The $Im \\omega$ is monotonically decreasing, when P1 \
+increases\>\""}], " "}], "\[IndentingNewLine]", 
+ RowBox[{"                "}]}], "Input",
+ CellChangeTimes->{{3.658772442875*^9, 3.658772466796875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Case1", " ", "-", " ", 
+   RowBox[{
+   "The", "  ", "effective", " ", "potential", "  ", "has", "  ", "more", " ",
+     "than", " ", "one", " ", "local", " ", "extremum"}]}], ",", 
+  RowBox[{"the", " ", "WKB", " ", "formula", " ", "is", " ", "not", " ", 
+   RowBox[{"accurate", ".", " "}]}]}]], "Input",
+ CellChangeTimes->{{3.65877252603125*^9, 3.658772545078125*^9}, {
+  3.65877260696875*^9, 3.658772616125*^9}}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.753", "0.752", 
+    RowBox[{"-", "0.0901"}], 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.780", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.790", "0.790", 
+    RowBox[{"-", "0.0875"}], 
+    RowBox[{"-", "0.0870"}]},
+   {"0.3", "+", 
+    RowBox[{" ", "2"}], "0.820", "0.804", 
+    RowBox[{"-", "0.0870"}], 
+    RowBox[{"-", "0.0867"}]},
+   {"0.4", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.840", "0.815", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0859"}]},
+   {"0.5", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.853", "0.828", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0844"}]},
+   {"0.6", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.876", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.890", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0812"}]},
+   {"0.8", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.923", "0.845", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"-", "0.0780"}]},
+   {"0.9", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.931", "0.842", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"-", "0.0761"}]},
+   {"1.0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.961", "0.840", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"-", "0.0745"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.658772577015625*^9, 3.6587725905*^9}, {
+   3.65877357090625*^9, 3.65877357934375*^9}, {3.658774936953125*^9, 
+   3.6587749549375*^9}, 3.65877597796875*^9, 3.65877618928125*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"Generated", " ", 
+             RowBox[{"text", ":", "\[IndentingNewLine]", "  ", "1"}]}], ")"}],
+            " ", "\"\< The effective potential is positive definite for the \
+P1 changing in the range (P1_min, P2_max), so the perturbation is \
+stable.\>\""}], "\n", "                          ", "2"}], ")"}], " ", 
+        "\"\<The effective potential has more than one local extremum, so \
+that the WKB formula [WKBreference] cannot be quite accurate, as it takes \
+into account scattering from the main peak. We should trust to time-domain \
+data.\>\""}], "\n", "                          ", "3"}], ")"}], " ", 
+     "\"\< The $Re \\omega$ is monotonically increasing, when P1 increases \
+until $P1 \\approx 0.6$ and then it is decreasing.\>\""}], 
+    "\[IndentingNewLine]", "                     ", "4"}], ")"}], " ", 
+  "\"\< The $Im \\omega$ is monotonically decreasing, when P1 increases\>\"", 
+  " "}]], "Input",
+ CellChangeTimes->{{3.658772650015625*^9, 3.658772709203125*^9}, {
+  3.658772749*^9, 3.658772759703125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CaseA", " ", "-", 
+   RowBox[{
+   "Time", " ", "domain", " ", "frequencies", " ", "are", " ", "found", " ", 
+    "and", " ", "they", " ", "are", " ", "stable"}]}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{
+   "see", " ", "all", " ", "of", " ", "the", " ", "above", "  ", "tables", 
+    " ", "as", " ", 
+    RowBox[{"examples", ".", "\[IndentingNewLine]", " ", "Generated"}], " ", 
+    "text", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+      "in", " ", "addition", " ", "to", " ", "all", " ", "the", " ", "above", 
+       " ", "generated", " ", "in", " ", "the", " ", "corresponding", " ", 
+       "cases", "  ", "1"}], ",", " ", "2", ",", " ", "3"}], ")"}]}], ":", 
+   "\"\<The damping proifle of the perturbation in the time-domain also shows \
+that the perturbation is stable when P! ranges from $P1_min$ to \
+$P1_max$\>\""}]}]], "Input",
+ CellChangeTimes->{{3.658772856734375*^9, 3.658773096859375*^9}}],
+
+Cell[BoxData[
+ RowBox[{"CaseB", " ", "-", " ", 
+  RowBox[{
+  "We", " ", "have", " ", "found", " ", "unstable", " ", "mode", " ", "in", 
+   " ", "time"}], "-", 
+  RowBox[{"domain", " ", "for", " ", "some", " ", "parameters"}]}]], "Input",
+ CellChangeTimes->{{3.65877313015625*^9, 3.658773192953125*^9}}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.753", "0.752", 
+    RowBox[{"-", "0.0901"}], 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "-"}], 
+    RowBox[{" ", "1"}], "0.776", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.788", "0.790", 
+    RowBox[{"-", "0.0875"}], 
+    RowBox[{"-", "0.0702"}]},
+   {"0.3", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.800", "0.804", 
+    RowBox[{"-", "0.0870"}], 
+    RowBox[{"-", "0.0570"}]},
+   {"0.4", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.810", "0.816", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0490"}]},
+   {"0.5", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.823", "0.829", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0340"}]},
+   {"0.6", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.845", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.840", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0011"}]},
+   {"0.8", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.833", "0", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"+", "0.0090"}]},
+   {"0.9", 
+    RowBox[{"  ", "-"}], 
+    RowBox[{" ", "1"}], "0.831", "0", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"+", "0.0211"}]},
+   {"1.0", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.825", "0", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"+", "0.0345"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.658773219140625*^9, 3.658773276046875*^9}, {
+   3.65877370690625*^9, 3.65877378*^9}, {3.65877491221875*^9, 
+   3.658774929703125*^9}, {3.658775986*^9, 3.65877601059375*^9}, 
+   3.65877619365625*^9, {3.658780351640625*^9, 3.6587803541875*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"Generated", " ", 
+          RowBox[{"text", ":", " ", "1"}]}], ")"}], " ", 
+        "\"\<The effective potential  has a single maximum and is not always \
+positive definite in the range P1 from $P1_min$ to $P1_max$\>\""}], 
+       "\[IndentingNewLine]", "2"}], ")"}], "   ", 
+     "\"\< The difference between WKB and time data is not small (up to \
+MAXIMAL-RELATIVE-ERROR percents), because the WKB method converges only \
+asymptotically. Therefore, we must trust to time-domain profiles\>\""}], "\n",
+     "3"}], ")"}], " ", 
+  "\"\< For P1 from 0.8 until P_max  the time-domain profile  are unboundedly \
+growing, what means instability in this range of paramters.\>\""}]], "Input",
+ CellChangeTimes->{{3.658773292203125*^9, 3.6587732941875*^9}, {
+  3.65877333575*^9, 3.6587734465*^9}, {3.658773481359375*^9, 
+  3.658773485734375*^9}, {3.65877353396875*^9, 3.6587735359375*^9}, {
+  3.65877361284375*^9, 3.658773667609375*^9}, {3.65877430659375*^9, 
+  3.658774390078125*^9}}],
+
+Cell[BoxData[
+ RowBox[{"CaseC", " ", "-", " ", 
+  RowBox[{
+  "We", " ", "have", " ", "found", " ", "damping", " ", "modes", " ", "but", 
+   " ", "time"}], "-", 
+  RowBox[{
+  "domain", " ", "does", " ", "not", " ", "allow", " ", "to", " ", "extract", 
+   " ", "frequencies", " ", "sometimes"}]}]], "Input",
+ CellChangeTimes->{{3.658774456578125*^9, 3.658774497984375*^9}}],
+
+Cell[BoxData[GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.753", "0.752", 
+    RowBox[{"-", "0.0901"}], 
+    RowBox[{"-", "0.0900"}]},
+   {"0.1", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.776", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.788", "stable", 
+    RowBox[{"-", "0.0875"}], "stable"},
+   {"0.3", "+", 
+    RowBox[{" ", "1"}], "0.800", "stable", 
+    RowBox[{"-", "0.0870"}], "stable"},
+   {"0.4", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.810", "0.816", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0859"}]},
+   {"0.5", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.823", "0.829", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0844"}]},
+   {"0.6", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.845", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.840", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0812"}]},
+   {"0.8", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.833", "0.845", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"-", "0.0780"}]},
+   {"0.9", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.831", "0.842", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"-", "0.0761"}]},
+   {"1.0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.825", "0.840", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"-", "0.0745"}]}
+  }]], "Input",
+ CellChangeTimes->{{3.658774561828125*^9, 3.658774575375*^9}, {
+   3.65877462690625*^9, 3.658774641453125*^9}, {3.65877488575*^9, 
+   3.658774905453125*^9}, 3.6587760335625*^9, 3.658776197484375*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Generated", " ", 
+                    RowBox[{"text", ":", "  ", "1"}]}], ")"}], " ", 
+                    "\"\< The effective potential is positive definite for \
+the P1 changing in the range (P1_min, P2_max), so the perturbation is stable.\
+\>\""}], "\n", "                          ", "2"}], ")"}], " ", 
+                  "\"\< The effective potential has a single extremum, so \
+that the WKB formula [WKBreference] can be applied.\>\""}], "\n", 
+                 "                          ", "3"}], ")"}], " ", 
+               "\"\< The $Re \\omega$ is monotonically increasing, when P1 \
+increases until $P1 \\approx 0.6$ and then it is decreasing.\>\""}], 
+              "\[IndentingNewLine]", "           ", "4"}], ")"}], " ", 
+            "\"\< The $Im \\omega$ is monotonically decreasing, when P1 \
+increases\>\""}], " ", "\[IndentingNewLine]", "                ", "5"}], 
+          ")"}], "\"\< The difference between WKB and time data is relatively \
+small (within MAXIMAL-RELATIVE-ERROR percents)\>\""}], "\[IndentingNewLine]", 
+        "                     ", "6"}], ")"}], " ", 
+      "\"\<The larger P1, the higher is the error of the WKB method\>\""}], 
+     "\n", "                               ", "7"}], ")"}], " ", 
+   "\"\<For P1 from 0.2 until 0.3 we were unable to extract the value of the \
+dominant qusinormal frequency with the Prony methos. However we can see that \
+the perturbation is stable as it decays in time.\>\""}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Now", ",", " ", 
+  RowBox[{
+  "let", " ", "us", " ", "look", " ", "how", " ", "a", " ", "hybrid", " ", 
+   "case", " ", "could", " ", "look"}]}], "\[IndentingNewLine]", GridBox[{
+   {"P1", "potential", 
+    RowBox[{"N", " ", "extremum"}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Re", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", "WKB", ")"}]}], 
+    RowBox[{"Im", " ", "omega", " ", 
+     RowBox[{"(", 
+      RowBox[{"time", "-", "domain"}], ")"}]}]},
+   {"0", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "1"}], "0.753", "-", 
+    RowBox[{"-", "0.0901"}], "-"},
+   {"0.1", 
+    RowBox[{"  ", "+"}], 
+    RowBox[{" ", "1"}], "0.776", "0.775", 
+    RowBox[{"-", "0.0888"}], 
+    RowBox[{"-", "0.0885"}]},
+   {"0.2", 
+    RowBox[{"  ", "+"}], 
+    RowBox[{" ", "2"}], "0.788", "stable", 
+    RowBox[{"-", "0.0875"}], "stable"},
+   {"0.3", 
+    RowBox[{" ", "+"}], 
+    RowBox[{" ", "2"}], "0.800", "stable", 
+    RowBox[{"-", "0.0870"}], "stable"},
+   {"0.4", 
+    RowBox[{"  ", "+"}], 
+    RowBox[{" ", "2"}], "0.810", "0.816", 
+    RowBox[{"-", "0.0864"}], 
+    RowBox[{"-", "0.0490"}]},
+   {"0.5", 
+    RowBox[{"  ", "+"}], 
+    RowBox[{" ", "2"}], "0.823", "0.829", 
+    RowBox[{"-", "0.0852"}], 
+    RowBox[{"-", "0.0340"}]},
+   {"0.6", 
+    RowBox[{"  ", "-"}], 
+    RowBox[{" ", "1"}], "0.845", "0.856", 
+    RowBox[{"-", "0.0844"}], 
+    RowBox[{"-", "0.0834"}]},
+   {"0.7", 
+    RowBox[{"  ", "-"}], 
+    RowBox[{" ", "1"}], "0.840", "0.851", 
+    RowBox[{"-", "0.0830"}], 
+    RowBox[{"-", "0.0011"}]},
+   {"0.8", 
+    RowBox[{"   ", "-"}], 
+    RowBox[{" ", "1"}], "0.833", "0", 
+    RowBox[{"-", "0.0811"}], 
+    RowBox[{"+", "0.0090"}]},
+   {"0.9", 
+    RowBox[{"  ", "-"}], 
+    RowBox[{" ", "1"}], "0.831", "0", 
+    RowBox[{"-", "0.0791"}], 
+    RowBox[{"+", "0.0211"}]},
+   {"1.0", 
+    RowBox[{"  ", "-"}], 
+    RowBox[{" ", "1"}], "0.825", "0", 
+    RowBox[{"-", "0.0772"}], 
+    RowBox[{"+", "0.0345"}]}
+  }]}], "Input",
+ CellChangeTimes->{{3.658774539765625*^9, 3.6587745451875*^9}, {
+   3.658774581015625*^9, 3.65877481759375*^9}, {3.658774854875*^9, 
+   3.6587748794375*^9}, {3.658775057609375*^9, 3.6587751160625*^9}, {
+   3.65877539346875*^9, 3.658775441359375*^9}, {3.6587755268125*^9, 
+   3.658775528046875*^9}, {3.658776017578125*^9, 3.658776048140625*^9}, 
+   3.658776200890625*^9, {3.65877656365625*^9, 3.65877656878125*^9}, {
+   3.6587803606875*^9, 3.6587803658125*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Generated", " ", 
+                    RowBox[{"text", ":", "1"}]}], ")"}], " ", 
+                    "\"\<Effective potential is positive definite for P1 from \
+0 until 0.5. Thus  the perturbation is stable in this range\>\""}], 
+                   "\[IndentingNewLine]", "                               ", 
+                   "2"}], ")"}], " ", 
+                 "\"\<Effective potential is negative in the range P1 from \
+0.6 until 1.0.\>\""}], "\[IndentingNewLine]", 
+                "                                    ", "3"}], ")"}], " ", 
+              "\"\<In the range P1 from 0.2 until 0.5 the effective potential \
+has more than one local extremum, thus the WKB method is not quite accurate \
+in this range.\>\""}], "\[IndentingNewLine]", "4"}], ")"}], " ", 
+           "\"\< The difference between WKB and time data is not small \
+(within MAXIMAL-RELATIVE-ERROR percents). The WKB series converges only \
+asymptotically and we have to rely upon time-domain profile\>\""}], 
+          "\[IndentingNewLine]", "4"}], ")"}], "   ", 
+        "\"\<For P1 ranging from 0.2 until 0.3 we were unable to extract the \
+dominant frequencies with the Prony method, but the perturbation is stable \
+for this case\>\""}], "\[IndentingNewLine]", "     ", "5"}], ")"}], " ", 
+     "\"\< For P1 in the range from 0.8 until 1.0 the time-domain integration \
+shows instability\>\""}], "\[IndentingNewLine]", "6"}], ")"}], " ", 
+  "\"\<We were unable to perform time-domain integration for P1=0.\>\""}]], \
+"Input",
+ CellChangeTimes->{{3.65877512296875*^9, 3.658775343375*^9}, {
+  3.6587754645625*^9, 3.6587754935*^9}, {3.658775545328125*^9, 
+  3.658775549453125*^9}, {3.65877558971875*^9, 3.658775864046875*^9}, {
+  3.658776571921875*^9, 3.658776602859375*^9}}]
+},
+WindowSize->{1264, 603},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->0.8999999761581421,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 456, 10, 46, "Input"],
+Cell[1004, 32, 372, 9, 64, "Input"],
+Cell[1379, 43, 632, 15, 27, "Input"],
+Cell[2014, 60, 2300, 72, 167, "Input"],
+Cell[4317, 134, 1860, 40, 136, "Input"],
+Cell[6180, 176, 531, 13, 27, "Input"],
+Cell[6714, 191, 2125, 70, 167, "Input"],
+Cell[8842, 263, 1548, 36, 118, "Input"],
+Cell[10393, 301, 478, 10, 27, "Input"],
+Cell[10874, 313, 1910, 60, 167, "Input"],
+Cell[12787, 375, 1144, 27, 100, "Input"],
+Cell[13934, 404, 448, 9, 27, "Input"],
+Cell[14385, 415, 2173, 70, 167, "Input"],
+Cell[16561, 487, 1229, 27, 136, "Input"],
+Cell[17793, 516, 949, 21, 64, "Input"],
+Cell[18745, 539, 302, 6, 27, "Input"],
+Cell[19050, 547, 2264, 72, 167, "Input"],
+Cell[21317, 621, 1117, 24, 100, "Input"],
+Cell[22437, 647, 371, 8, 27, "Input"],
+Cell[22811, 657, 2136, 68, 167, "Input"],
+Cell[24950, 727, 4523, 119, 377, "Input"],
+Cell[29476, 848, 2187, 47, 190, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
