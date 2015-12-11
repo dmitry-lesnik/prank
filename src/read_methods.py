@@ -107,6 +107,15 @@ def read_calculation_output(filename='calculation_output.txt'):
     ret['values_slice_b0'] = v_b0
     return ret
 
+def read_calculation_output2(filename):
+
+    A_full = pd.read_csv(filename, delimiter=',\s*')
+    A_num = pd.read_csv(filename, delimiter=',\s*', na_values=['stable', 'error', '-', '+'])
+    Param = A_num.values[:,0].astype(float, copy=False)
+
+    return A_full, A_num, Param
+
+
 
 if __name__ == '__main__':
 
@@ -114,15 +123,14 @@ if __name__ == '__main__':
 
 
 
-    filename = 'calculation_output.txt'
+    filename = 'output_1.txt'
 
-    ret = read_calculation_output(filename)
-
-    A_full = ret['A_full']
-    A_num = ret['A_num']
+    A_full, A_num, Param = read_calculation_output2(filename)
 
     log_debug(A_full, 'A_full', std_out=True)
     log_debug(A_num, 'A_num', std_out=True)
+    log_debug(Param, 'Param', std_out=True)
+
 
 
 

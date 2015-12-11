@@ -35,46 +35,19 @@ s.read_from_file()
 log_debug('\n------------------------')
 log_debug('post-processing\n')
 
-filename = 'calculation_output.txt'
+filename = 'output_1.txt'
 
-ret = read_calculation_output(filename)
-A_full = ret['A_full']
-A_num = ret['A_num']
-a = ret['param_a']
-b = ret['param_b']
-v_full = ret['values_full']
-v_a0 = ret['values_slice_a0']
-v_b0 = ret['values_slice_b0']
+A_full, A_num, Param  = read_calculation_output2(filename)
 
 log_debug(A_full, 'A_full', std_out=True)
 log_debug(A_num, 'A_num', std_out=True)
 
 
-###############################
-#### fixed a ##################
-
-WKB_Re_a0 = v_a0[:, 0]
-WKB_Im_a0 = v_a0[:, 1]
-WKB_Re_b0 = v_b0[:, 0]
-WKB_Im_b0 = v_b0[:, 1]
+######################################
+# analyse potential
 
 
-log_debug('\n============================================')
-log_debug('=======  WKB: Re(omega)  ===================')
-
-#--------------
-log_debug('fixed a:')
-intervals, signature = get_full_analysis(b, WKB_Re_a0)
-log_debug(intervals, 'intervals')
-log_debug(signature, 'signature')
-
-
-#--------------
-log_debug('fixed b:')
-intervals, signature = get_full_analysis(a, WKB_Re_b0)
-log_debug(intervals, 'intervals')
-log_debug(signature, 'signature')
-
+pot_sign = A_full['potential']
 
 
 # list of parameter values, where time-domain values differ more than 10% from WKB values
@@ -82,27 +55,16 @@ log_debug(signature, 'signature')
 data = A_num.values
 N = data.shape[0]
 
-w_re = data[:, 2]
-w_im = data[:, 3]
+w_re = data[:, 3]
+w_im = data[:, 5]
 t_re = data[:, 4]
-t_im = data[:, 5]
+t_im = data[:, 6]
 r1 = np.sqrt(w_re**2 + w_im**2)
 r2 = np.sqrt(t_re**2 + t_im**2)
 d = np.sqrt( (t_re - w_re)**2 + (t_im - w_im)**2)
 rel_d = 2. * d / (r1 + r2 + 1e-12)
 q_points = (rel_d > 0.001)
 
-
-#indicators of 'stable', 'error' and '-'
-
-st_points = (A_full['td_Re'] == 'stable').values
-er_points = (A_full['td_Re'] == 'error').values
-invalid_points = (A_full['td_Re'] == '-').values
-
-log_debug(q_points, 'q_points')
-log_debug(st_points, 'st_points')
-log_debug(er_points, 'er_points')
-log_debug(invalid_points, 'invalid_points')
 
 
 
