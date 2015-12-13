@@ -1,0 +1,171 @@
+
+##################################################
+$begin_section{potential_positive_definite_all}
+Good news about the effective potential.
+$begin_variants
+${
+    The effective potential is positive definite for the P1 changing in the range (P1_min, P2_max), so the perturbation is stable.
+$}
+${
+    The effective potential is positive definite for the entire range of the parameter $P_1$, so the perturbation is stable.
+$}
+$end_variants
+$end_section
+
+
+
+
+
+##################################################
+$begin_section{potential_non-positive_definite_all}
+Bad news about the effective potential.
+$begin_variants
+${
+    The effective potential is non-positive definite for the $P1$ changing in the range (P1_min, P2_max), so the perturbation is unstable.
+$}
+${
+    The effective potential is non-positive definite for the entire range of the parameter $P_1$, so the perturbation is unstable.
+$}
+$end_variants
+$end_section
+
+
+
+##################################################
+$begin_section{potential_positive_connected}
+	The effective potential is positive in the range [$_potential_positive_range_1, $_potential_positive_range_2]. Thus the perturbation is stable in this range. Beyond this range the effective potential is not positive-definite, and hence what?
+$end_section
+
+
+##################################################
+$begin_section{potential_negative_connected}
+	The effective potential is non-positive in the range [$_potential_negative_range_1, $_potential_negative_range_2]. The perturbation is unstable in this range. Beyond this range the effective potential is positive-definite, and thus the perturbation is stable.
+$end_section
+
+
+##################################################
+$begin_section{potential_disconnected}
+	The effective potential is positive definite for some values of parameter. For these values the perturbation is stable. However we observed a non-positive definite effective potential for some other values.
+$end_section
+
+
+##################################################
+$begin_section{potential_0_extrema_all}
+	No extrema for all values of the parameter.
+$end_section
+
+##################################################
+$begin_section{potential_1_extrema_all}
+	Exactly one extremum for all values of the parameter.
+$end_section
+
+##################################################
+$begin_section{potential_many_extrema_all}
+	More than one extremum for all values of the parameter.
+$end_section
+
+
+
+##################################################
+$begin_section{potential_0_extrema_ranged}
+	No extrema in the range [$_extrema_range_1, $_extrema_range_2].
+$end_section
+
+
+##################################################
+$begin_section{potential_1_extrema_ranged}
+	One extremum in the range [$_extrema_range_1, $_extrema_range_2].
+$end_section
+
+
+##################################################
+$begin_section{potential_many_extrema_ranged}
+	Many extrema in the range [$_extrema_range_1, $_extrema_range_2].
+$end_section
+
+
+##################################################
+$begin_section{potential_0_extrema_continued}
+	For other values of parameter the effective potential has no extrema.
+$end_section
+
+
+##################################################
+$begin_section{potential_1_extrema_continued}
+	For other values of parameter the effective potential has exactly one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_many_extrema_continued}
+	For other values of parameter the effective potential has more than one extremum and hence ???.
+$end_section
+
+
+##################################################
+$begin_section{potential_01_extrema_disconnected}
+	For some values of parameter the effective potential has no extrema. For other values there is exactly one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_02_extrema_disconnected}
+	For some values of parameter the effective potential has no extrema. For other values there more than one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_12_extrema_disconnected}
+	For some values of parameter the effective potential has exactly one extremum. For other values there more than one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_12_extrema_continued}
+	For some other values of the parameter the effective potential has either one or more than one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_02_extrema_continued}
+	For some other values of the parameter the effective potential has either zero or more than one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_01_extrema_continued}
+	For some other values of the parameter the effective potential has either zero orexactly one extremum.
+$end_section
+
+
+##################################################
+$begin_section{potential_012_disconnected}
+	For different values of the parameter the effective potential has zero, one ore more than one extremum. For those values of parameter where the number of extremums is bigger than one, the WKB formula [WKBreference] cannot be quite accurate, as it takes into account scattering from the main peak. We should trust to time-domain data.
+$end_section
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

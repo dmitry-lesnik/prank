@@ -46,7 +46,9 @@ class Synonyms(object):
         self.synonyms = []
         self.synonyms_ambiguous = dict()
 
-        ret = read_synonyms(filename)
+        ret = self.read_from_file(filename)
+
+        # ret = read_synonyms(filename)
         for line in ret:
             if len(line) > 0:
                 if line[0][0] == '&':
@@ -84,6 +86,25 @@ class Synonyms(object):
             return capitalise(words[i])
         else:
             return words[i]
+
+    @staticmethod
+    def read_from_file(filename):
+        """
+        Returns:
+        ret:    list of lists
+            each line is a list of words
+        """
+        f = open(filename)
+        x = f.readlines()
+        ret = []
+        for line in x:
+            z = line.split(';')
+            for i in range(len(z)):
+                z[i] = z[i].strip(' \n')
+            if z != ['']:
+                ret.append(z)
+        f.close()
+        return ret
 
 
 class Equivalent_sentences(object):

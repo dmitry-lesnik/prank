@@ -4,24 +4,6 @@ from helpers import *
 
 
 
-def read_synonyms(filename):
-    """
-    Returns:
-    ret:    list of lists
-        each line is a list of words
-    """
-    f = open(filename)
-    x = f.readlines()
-    ret = []
-    for line in x:
-        z = line.split(',')
-        for i in range(len(z)):
-            z[i] = z[i].strip(' \n')
-        if z != ['']:
-            ret.append(z)
-    f.close()
-    return ret
-
 
 def read_templates(filename):
     """
@@ -109,8 +91,17 @@ def read_calculation_output(filename='calculation_output.txt'):
 
 def read_calculation_output2(filename):
 
-    A_full = pd.read_csv(filename, delimiter=',\s*')
-    A_num = pd.read_csv(filename, delimiter=',\s*', na_values=['stable', 'error', '-', '+'])
+    A_full = pd.read_csv(filename,
+                         delimiter=',',
+                         skipinitialspace=True)
+    A_num = pd.read_csv(filename,
+                        delimiter=',\s*',
+                        na_values=['stable', 'error', '-', '+'],
+                        skipinitialspace=True)
+
+    good_rows = -np.isnan(A_num.P)
+    A_num = A_num[good_rows]
+    A_full = A_full[good_rows]
     Param = A_num.values[:,0].astype(float, copy=False)
 
     return A_full, A_num, Param
