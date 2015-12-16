@@ -256,6 +256,10 @@ else:
 
 
 for s_name in sections_potential_extrema:
+
+    import sys
+    sys.path.append('/home/dima/work/sandboxes/git_projects/prank')
+
     log_debug(s_name, 's_name', std_out=True)
     p = s.get_section(s_name)
     log_debug(p, 'section')
