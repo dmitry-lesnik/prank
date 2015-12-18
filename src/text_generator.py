@@ -463,16 +463,6 @@ if __name__ == "__main__":
     gen = Text_generator()
     v = Variants()
 
-    #
-    # v.read_from_file('introduction_variants2.txt')
-    #
-    # p = v.random_variant()
-    # log_debug(p, 'random variant')
-    # t = gen.generate_block(p, vars)
-    # log_debug(t, 'generated text', std_out=True)
-    #
-
-
     s = Sections()
     s.read_from_file('../templates/sections_list.txt')
 

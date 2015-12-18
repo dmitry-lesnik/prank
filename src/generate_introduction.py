@@ -3,6 +3,8 @@ from text_generator import *
 from post_processing import *
 
 
+
+
 def find_true_interval(x, Param=None):
     """
     x - Series:
@@ -257,8 +259,6 @@ else:
 
 for s_name in sections_potential_extrema:
 
-    import sys
-    sys.path.append('/home/dima/work/sandboxes/git_projects/prank')
 
     log_debug(s_name, 's_name', std_out=True)
     p = s.get_section(s_name)
