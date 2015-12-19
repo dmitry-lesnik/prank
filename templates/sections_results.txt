@@ -1,5 +1,22 @@
 
 ##################################################
+$begin_section{results_1}
+\section{Results}
+$begin_variants
+${
+	Here we discuss the results of calculation.
+$}
+${
+	Here we discuss the results (alternative version).
+$}
+$end_variants
+The main results are presented in the Table 1.
+
+$end_section
+
+
+
+##################################################
 $begin_section{potential_positive_definite_all}
 Good news about the effective potential.
 $begin_variants
@@ -80,7 +97,7 @@ $end_section
 
 ##################################################
 $begin_section{potential_many_extrema_ranged}
-	Many extrema in the range [$_extrema_range_1, $_extrema_range_2].
+	Effective potential has more than one extremum in the range [$_extrema_range_1, $_extrema_range_2].
 $end_section
 
 
@@ -134,14 +151,81 @@ $end_section
 
 ##################################################
 $begin_section{potential_01_extrema_continued}
-	For some other values of the parameter the effective potential has either zero orexactly one extremum.
+	For some other values of the parameter the effective potential has either zero or exactly one extremum.
 $end_section
 
 
 ##################################################
 $begin_section{potential_012_disconnected}
-	For different values of the parameter the effective potential has zero, one ore more than one extremum. For those values of parameter where the number of extremums is bigger than one, the WKB formula [WKBreference] cannot be quite accurate, as it takes into account scattering from the main peak. We should trust to time-domain data.
+	For different values of the parameter the effective potential has zero, one ore more than one extremum. For those values of parameter where the number of extrema is bigger than one, the WKB formula [WKBreference] cannot be quite accurate, as it takes into account scattering from the main peak. We should trust to time-domain data.
 $end_section
+
+
+
+
+##################################################
+######## instability region ######################
+
+$begin_section{instability_td_all}
+	In the entire range of the parameter the time-domain profile is unboundedly growing, what means instability.
+$end_section
+
+
+
+##################################################
+$begin_section{instability_td_range}
+	For P1 from $_instability_range_1 until $_instability_range_2 the time-domain profile is unboundedly growing, what means instability in this range of parameters.
+$end_section
+
+
+##################################################
+$begin_section{instability_td_disconnected}
+	For some values of the parameter the time-domain profile is unboundedly growing, what means instability. This manifests itself as a positive imaginary part of the frequency.  
+$end_section
+
+
+
+##################################################
+######## stability region ########################
+
+$begin_section{stability_td_all}
+	For the entire range of P1 we were unable to extract the dominant frequencies with the Prony method, but the perturbation was found to be stable.
+$end_section
+
+
+##################################################
+$begin_section{stability_td_range}
+	For P1 ranging from $_stability_range_1 until $_stability_range_2 we were unable to extract the dominant frequencies with the Prony method, but the perturbation is stable for this case.
+$end_section
+
+
+##################################################
+$begin_section{stability_td_disconnected}
+	For some values of P1 we were unable to extract the dominant frequencies with the Prony method, but the perturbation was found to be stable.
+$end_section
+
+
+
+
+##################################################
+######## large difference region #################
+
+$begin_section{large_difference_all}
+	The difference between WKB and time data is not small (within MAXIMAL-RELATIVE-ERROR percents). The WKB series converges only asymptotically and we have to rely upon time-domain profile
+$end_section
+
+
+##################################################
+$begin_section{large_difference_range}
+	For P1 ranging from $_large_difference_range_1 until $_large_difference_range_2 the difference between WKB and time data is not small (within MAXIMAL-RELATIVE-ERROR percents). The WKB series converges only asymptotically and we have to rely upon time-domain profile.
+$end_section
+
+
+##################################################
+$begin_section{large_difference_disconnected}
+		For some values of P1 the difference between WKB and time data is not small (within MAXIMAL-RELATIVE-ERROR percents). The WKB series converges only asymptotically and we have to rely upon time-domain profile.
+$end_section
+
 
 
 

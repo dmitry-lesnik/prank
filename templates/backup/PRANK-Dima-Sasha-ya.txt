@@ -128,7 +128,7 @@ P1	potential	N extremum	Re omega (WKB)	Re omega (time-domain)	Im omega (WKB)	Im 
 0	 +	 1	0.753	0.752	-0.0901	-0.0900
 0.1	 +	 1	0.776	0.775	-0.0888	-0.0885
 0.2	 +	 1	0.788	stable	-0.0875	stable
-0.3	+	 1	0.800	stable	-0.0870	stable
+0.3	 +	 1	0.800	stable	-0.0870	stable
 0.4	 +	 1	0.810	0.816	-0.0864	-0.0859
 0.5	 +	 1	0.823	0.829	-0.0852	-0.0844
 0.6	 +	 1	0.845	0.856	-0.0844	-0.0834
@@ -145,7 +145,7 @@ Generated text:
 4) " The $Im \omega$ is monotonically decreasing, when P1 increases" 
 5)" The difference between WKB and time data is relatively small (within MAXIMAL-RELATIVE-ERROR percents)"
 6) "The larger P1, the higher is the error of the WKB method"
-7) "For P1 from 0.2 until 0.3 we were unable to extract the value of the dominant qusinormal frequency with the Prony methos. However we can see that the perturbation is stable as it decays in time."
+7) "For P1 from 0.2 until 0.3 we were unable to extract the value of the dominant quasinormal frequency with the Prony methos. However we can see that the perturbation is stable as it decays in time."
 
 
                                

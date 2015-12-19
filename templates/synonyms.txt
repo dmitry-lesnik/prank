@@ -1,3 +1,24 @@
+ringing; oscillations
+response of a black hole; black hole's response; reaction of a black hole; black hole's reaction; BH's response
+quasinormal; quasi-normal; QN
+quasinormal modes; quasinormal frequencies; frequencies of quasinormal modes; QNMs; frequencies of QNMs; QN frequencies
+perturbation; initial perturbation
+conditionally; contingently;
+equilibrium; equilibrium state
+parameters of a black hole; black hole's parameters; basic black hole's parameters; basic parameters of a black hole
+the way of perturbation; the way in which the black hole is perturbed; the initial perturbation; the initial perturbation of the system; the initial deformation of space-time
+therefore; that is why; thus; hence; accordingly; for this reason
+fingerprints of a black hole; footprint of a black hole; black hole's fingerprints; black hole's footprint; fingerprint or footprint of a black hole; black hole's fingerprint or footprint
+imaginary part; damping rate; damping rate of oscillations
+owing to; due to; because of; on account of; through
+lost of energy; emitting energy; energy lost; decreasing of energy; energy decreasing
+&through1; through emitting; through; in the form of; by; carried away by
+
+
+
+
+
+
 buy; purchase
 big; large
 on; upon
@@ -9,3 +30,11 @@ next we observe that; we have observed that; it turned out that
 on the other hand; however; but
 &shut; close; shut
 &near; close; near
+
+
+
+
+
+
+
+

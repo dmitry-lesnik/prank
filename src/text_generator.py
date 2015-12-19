@@ -134,7 +134,7 @@ class Equivalent_sentences(object):
         if len(w) > 1:
             vars = dict()
             for j in range(1, len(w)):
-                pn = 'p{}'.format(j)
+                pn = '_p{}'.format(j)
                 vars[pn] = w[j]
             sentence_tmp = Template(sentence_tmp).safe_substitute(**vars)
         return sentence_tmp
@@ -284,13 +284,10 @@ class Sections(object):
         self.sections = dict()
         self.kw = keywords_list()
 
-    def read_from_file(self, filename=None, reset=True):
+    def read_from_file(self, filename, reset=True):
         if reset:
             self.sections = dict()
 
-        if filename is None:
-            BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-            filename = '/'.join([BASE_DIR, 'templates', 'sections_list.txt'])
         f = open(filename)
 
         while True:
@@ -442,8 +439,24 @@ class Text_generator(object):
                     output = "".join([output, s])
                 else:
                     output = " ".join([output, s])
-
         return output
+
+    def write_to_file(self, filename, p, vars, mode='w'):
+        """
+        Parameters
+        ----------
+        p:  list(string)
+            list of sentences
+
+        mode:   string
+            mode of file to open
+            'w' - overwrite
+            'a' - append
+        """
+        str = self.generate_block(p, vars)
+        f = open(filename, mode)
+        f.write(str)
+        f.close()
 
 
 if __name__ == "__main__":
@@ -464,7 +477,7 @@ if __name__ == "__main__":
     v = Variants()
 
     s = Sections()
-    s.read_from_file('../templates/sections_list.txt')
+    s.read_from_file('tests/test_sections.txt')
 
 
     p = s.get_section('introduction')

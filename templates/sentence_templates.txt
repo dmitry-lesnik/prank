@@ -2,11 +2,32 @@
 # comment
 
 **value_is_growing
-<<Next we observe that>> $p1 <<raises>> in the interval from $p2 to $p3.
-Notice that on the interval [$p2, $p3] $p1 is <<growing>>.
+<<Next we observe that>> $_p1 <<raises>> in the interval from $_p2 to $_p3.
+Notice that on the interval [$_p2, $_p3] $_p1 is <<growing>>.
 
 
 **value_is_decreasing
-<<Next we observe that>> $p1 <<decreases>> in the interval from $p2 to $p3.
-It turns out that on the interval [$p2, $p3] $p1 is <<decreasing>>.
+<<Next we observe that>> $_p1 <<decreases>> in the interval from $_p2 to $_p3.
+It turns out that on the interval [$_p2, $_p3] $_p1 is <<decreasing>>.
+
+**monotonicity_+
+The $_p1 is monotonically increasing on the entire range of the parameter.
+
+**monotonicity_-
+The $_p1 is monotonically decreasing on the entire range of the parameter.
+
+**monotonicity_+-
+The $_p1 is monotonically increasing until $P1 \approx $_p2$ and then it is decreasing.
+
+**monotonicity_-+
+The $_p1 is monotonically decreasing until $P1 \approx $_p2$ and then it is increasing.
+
+
+
+
+
+
+
+
+
 

@@ -1,0 +1,68 @@
+$begin_section{introduction_1}
+
+\documentclass[10pt]{article}
+%To use pdflatex, uncomment these lines, as well as the \href lines
+%in each entry
+%\usepackage[pdftex,
+%       colorlinks=true,
+%       urlcolor=blue,        \href{...}{...} external (URL)
+%       filecolor=green,      \href{...} local file
+%       linkcolor=red,        \ref{...} and \pageref{...}
+%       pdftitle={Papers by AUTHOR},
+%       pdfauthor={Your Name},
+%       pdfsubject={Just a test},
+%       pdfkeywords={test testing testable},
+%       pagebackref,
+%       pdfpagemode=None,
+%        bookmarksopen=true]{hyperref}
+\usepackage{color}
+\usepackage[dvips]{graphics}
+\renewcommand{\familydefault}{\sfdefault} % San serif
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+
+\pagestyle{empty}
+\oddsidemargin 0.0in
+\textwidth 6.5in
+\topmargin -0.35in
+\textheight 10.0in
+
+\begin{document}
+
+$begin_variants
+${
+	\title{Difference between WKB and time-domain integration methods}
+$}
+${
+	\title{Alternative title}
+$}
+$end_variants
+
+
+\author{}
+\date{\today}
+\maketitle
+
+
+
+We shall consider spherically symmetric metrics which can be written (in $3+1$- space-time dimensions) in the following form
+
+\begin{equation}\label{MT}
+ds^2 = A(r) dt^2 + B(r) d r^2 + r^2 (d \theta^2 + \sin^2 \theta d \phi^2).
+\end{equation}
+
+In higher than $D>4$ dimensions, the 2-sphere is replaced by a $D-2$-sphere. Then, we shall consider fields of various spin (scalar ($s=0$), electromagnetic ($s=1$), Dirac ($s=\pm1/2$)).
+
+\begin{equation}\label{wavelike}
+\frac{d^{2} \Psi_{i}}{d r_{*}^{2}} + (\omega^{2} - V_{i}(r))\Psi_{i} =
+0,\qquad d r_{*}= (A(r) B(r))^{-1/2} dr,
+\end{equation}
+
+The "tortoise" coordinate $r^*$ spans from $- \infty$ (black hole horizon) to $+ \infty$ (spacial infinity). Sometimes the space cannot be extended to infinity but to some other, distant cosmological horizon. The effective potential usually has the form of a smooth potential barrier with a peak at about 1.5 of the event horizon (from the origin).
+
+$end_section
+
+$begin_section{introduction_2}
+	\section{Introduction}
+	This is an alternative introduction. <<Through1>> the univerce.
+	
+$end_section
