@@ -63,6 +63,6 @@ $end_section
 
 $begin_section{introduction_2}
 	\section{Introduction}
-	This is an alternative introduction. <<Through1>> the univerce.
+	This is an alternative introduction. <<&Through1>> the universe.
 	
 $end_section
