@@ -15,7 +15,7 @@ class TestGenerator(object):
 
         random.seed(119)
 
-        gen = Text_generator()
+        gen = Text_generator(synonyms_filename='test_synonyms.txt')
         eqs = Equivalent_sentences()
 
         template = '<<This>> function <<increases>> from $aa to $bb.'
@@ -87,7 +87,7 @@ class TestGenerator(object):
 
         random.seed(123)
 
-        gen = Text_generator()
+        gen = Text_generator(synonyms_filename='test_synonyms.txt')
 
         proto_text = ['<<This>> function <<increases>> from $x to $y.',
                       '<<&Shut>> that fucking <<door>> please.',
@@ -113,7 +113,7 @@ class TestGenerator(object):
 
         random.seed(100)
 
-        gen = Text_generator()
+        gen = Text_generator(synonyms_filename='test_synonyms.txt')
 
         v = Variants()
         ret = v.read_from_file('test_variants.txt')
@@ -151,7 +151,7 @@ class TestGenerator(object):
     def test_sections(self):
         random.seed(101)
 
-        gen = Text_generator()
+        gen = Text_generator(synonyms_filename='test_synonyms.txt')
 
         s = Sections()
         s.read_from_file('test_sections_list.txt')
