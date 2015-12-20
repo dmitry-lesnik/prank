@@ -100,7 +100,7 @@ class Synonyms(object):
         for line in x:
             z = line.split(';')
             for i in range(len(z)):
-                z[i] = z[i].strip(' \n')
+                z[i] = z[i].strip(' \n\r')
             if z != ['']:
                 ret.append(z)
         f.close()
@@ -123,7 +123,7 @@ class Equivalent_sentences(object):
             return [key]
 
     def get_random_template(self, metatemplate):
-        w = metatemplate.strip('\n').split('|')
+        w = metatemplate.strip('\n\r').split('|')
         sentences = self.get_sentences_list(w[0])
         i = 0
         if len(sentences) > 1:
@@ -207,7 +207,7 @@ class Variants(object):
             line = f.readline()
             if line == '':
                 break
-            line = line.strip(' \t\n')
+            line = line.strip(' \t\n\r')
             if line == '':
                 continue
             if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
@@ -230,7 +230,7 @@ class Variants(object):
             line = f.readline()
             if line == '':
                 raise RuntimeError('unexpected EOF. Missing key {}'.format(self.kw.var_end_key))
-            line = line.strip(' \n\t')
+            line = line.strip(' \n\t\r')
             if line[0:len(self.kw.var_end_key)] == self.kw.var_end_key:
                 break
             if line[0:len(self.kw.var_start_key)] == self.kw.var_start_key:
@@ -300,7 +300,7 @@ class Sections(object):
 
             if line[0:len(self.kw.section_begin_key)] == self.kw.section_begin_key:
                 section = []
-                key = line[len(self.kw.section_begin_key):].strip('}{\n')
+                key = line[len(self.kw.section_begin_key):].strip('}{\n\r')
                 if key == '':
                     raise RuntimeError('missing section name')
                 if key in self.sections:

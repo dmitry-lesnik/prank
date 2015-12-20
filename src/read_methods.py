@@ -19,7 +19,7 @@ def read_templates(filename):
     ret = dict()
     key = 'key_missing'
     for line in lines:
-        z = line.strip(' \n')
+        z = line.strip(' \n\r')
         if len(z) == 0:
             pass
         elif z[0] == '#':
